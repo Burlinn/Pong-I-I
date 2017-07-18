@@ -1,0 +1,44 @@
+Mono path[0] = 'C:/Users/Nick Burlingame/Documents/Unity Projects/PongTest/PongTest_Data/Managed'
+Mono path[1] = 'C:/Users/Nick Burlingame/Documents/Unity Projects/PongTest/PongTest_Data/Mono'
+Mono config path = 'C:/Users/Nick Burlingame/Documents/Unity Projects/PongTest/PongTest_Data/Mono/etc'
+PlayerConnection initialized from C:/Users/Nick Burlingame/Documents/Unity Projects/PongTest/PongTest_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55363
+Multi-casting "[IP] 10.0.0.15 [Port] 55363 [Flags] 3 [Guid] 4056964655 [EditorId] 1648151300 [Version] 1048832 [Id] WindowsPlayer(Lawnchair) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [10.0.0.15:55363]...
+PlayerConnection accepted from [10.0.0.15] handle:0x270
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56655
+PlayerConnection already initialized - listening to [10.0.0.15:55363]
+Initialize engine version: 5.3.4f1 (fdbb5133b820)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD Radeon R9 200 Series (ID=0x6810)
+    Vendor:   ATI
+    VRAM:     2027 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.065 seconds
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Nick Burlingame\Documents\Unity Projects\PongTest\PongTest_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.913370 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 1e88 -> priority: 1 
+  Thread -> id: 1744 -> priority: 1 
+Waiting for finish
