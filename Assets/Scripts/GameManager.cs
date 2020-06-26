@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    public float cSpeed = 5;
-    public float sFactor = 5;
+    public float _constantSpeed = 5;
+    public float _gameSpeed = 5;
 
     //Two variables to hold our scores
     public int playerScore;
@@ -91,18 +91,18 @@ public class GameManager : MonoBehaviour
     private IEnumerator RoundEnding()
     {
 
-        if (ballManager.playerScoredLast && ballManager.roundHadWinner)
+        if (ballManager._playerScoredLast && ballManager._roundHadWinner)
         {
             playerScore++;
             playerScoreText.text = playerScore.ToString();
         }
-        else if(ballManager.roundHadWinner)
+        else if(ballManager._roundHadWinner)
         {
             enemyScore++;
             enemyScoreText.text = enemyScore.ToString();
         }
 
-        ballManager.roundHadWinner = false;
+        ballManager._roundHadWinner = false;
 
         if (enemyScore == scoreToWin)
         {
@@ -163,5 +163,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
+
+ 
+
 }

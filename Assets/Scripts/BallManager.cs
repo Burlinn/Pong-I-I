@@ -4,31 +4,32 @@ using System.Collections;
 
 public class BallManager : MonoBehaviour
 {
-
-    public float cSpeed = 5;
-    public float sFactor = 5;
+    //Speed of the ball
+    public float _constantBallSpeed = 5;
+    //Used to manipulate delta time
+    public float _gameSpeed = 5;
 
     //Two variables to hold our scores
-	public bool playerScoredLast = true;
-    public bool roundHadWinner = false;
+	public bool _playerScoredLast = true;
+    public bool _roundHadWinner = false;
     [HideInInspector] public GameObject ballInstance;
-    private Vector3 lastUsedStartingVector;
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "LeftWall")
         {
-			playerScoredLast = false;
-            roundHadWinner = true;
+			_playerScoredLast = false;
+            _roundHadWinner = true;
             ballInstance.SetActive(false);
         }
         if (collision.gameObject.name == "RightWall")
         {
-			playerScoredLast = true;
-            roundHadWinner = true;
+			_playerScoredLast = true;
+            _roundHadWinner = true;
             ballInstance.SetActive(false);
         }
 
+        //Bounce in a direction depending on where it hits the player's paddle.
         if (collision.gameObject.name == "Player")
         {
             if (transform.position.y <= collision.transform.position.y - .3)
@@ -47,35 +48,37 @@ public class BallManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 cvel = GetComponent<Rigidbody>().velocity;
-        Vector3 tvel = cvel.normalized * cSpeed;
-        GetComponent<Rigidbody>().velocity = Vector3.Lerp(cvel, tvel, Time.deltaTime * sFactor);
+        Vector3 ballVelocity = GetComponent<Rigidbody>().velocity;
+        Vector3 ballSpeed = ballVelocity.normalized * _constantBallSpeed;
+        GetComponent<Rigidbody>().velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
 
 
 
-        //Check the top bounds
+        //If we hit the top or the bottom, bounce off of them. s
         if (transform.position.y > 8 || transform.position.y < -8)
         {
             Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
             GetComponent<Rigidbody>().velocity.Set(currentVelocity.x, -currentVelocity.y, currentVelocity.z);
         }
 
+        //If we somehow make it past the cieling or floor, despawn the ball
 		if (transform.position.y > 8.1 || transform.position.y < -8.1 )
 		{
-            roundHadWinner = false;
+            _roundHadWinner = false;
             ballInstance.SetActive(false);
         }
 
+        //If the ball somehow ends up in a state where it's going up and down, nudge it in the right direction.
 		if (GetComponent<Rigidbody>().velocity.x < 1 && GetComponent<Rigidbody>().velocity.x > 0 )
 		{
 			Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
-			GetComponent<Rigidbody>().velocity.Set(currentVelocity.x + 2, currentVelocity.y - 2, currentVelocity.z);
-		}
-		else if  (GetComponent<Rigidbody>().velocity.x > -1 && GetComponent<Rigidbody>().velocity.x <= 0 )
+            GetComponent<Rigidbody>().velocity = new Vector3(2, -2, 0);
+        }
+        else if  (GetComponent<Rigidbody>().velocity.x > -1 && GetComponent<Rigidbody>().velocity.x <= 0 )
 		{
 			Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
-			GetComponent<Rigidbody>().velocity.Set(currentVelocity.x - 2, currentVelocity.y + 2, currentVelocity.z);
-		}
+            GetComponent<Rigidbody>().velocity = new Vector3(-2, 2, 0);
+        }
 
 	
 
