@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 114622823876675154}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,4 +125,4 @@ MonoBehaviour:
   _gameSpeed: 10
   _playerScoredLast: 1
   _roundHadWinner: 0
-  ballInstance: {fileID: 0}
+  _ballInstance: {fileID: 0}

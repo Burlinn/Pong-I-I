@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class PlayerManager : MonoBehaviour {
 
     public int speed = 10;
 	

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameGUI : MonoBehaviour {
+public class CanvasManager : MonoBehaviour {
 
     public Text pScore;
     public Text eScore;

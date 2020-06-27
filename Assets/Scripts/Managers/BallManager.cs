@@ -12,37 +12,11 @@ public class BallManager : MonoBehaviour
     //Two variables to hold our scores
 	public bool _playerScoredLast = true;
     public bool _roundHadWinner = false;
-    [HideInInspector] public GameObject ballInstance;
+    private GameObject _ballInstance;
 
-    void OnCollisionEnter(Collision collision)
+    public void Start()
     {
-        if (collision.gameObject.name == "LeftWall")
-        {
-			_playerScoredLast = false;
-            _roundHadWinner = true;
-            ballInstance.SetActive(false);
-        }
-        if (collision.gameObject.name == "RightWall")
-        {
-			_playerScoredLast = true;
-            _roundHadWinner = true;
-            ballInstance.SetActive(false);
-        }
-
-        //Bounce in a direction depending on where it hits the player's paddle.
-        if (collision.gameObject.name == "Player")
-        {
-            if (transform.position.y <= collision.transform.position.y - .3)
-            {
-				GetComponent<Rigidbody>().velocity = new Vector3(4, -3, 0);
-            }
-            if (transform.position.y >= collision.transform.position.y + .3)
-            {
-				GetComponent<Rigidbody>().velocity = new Vector3(4, 3, 0);
-            }
-
-        }
-			
+        _ballInstance = this.gameObject;
     }
 
     // Update is called once per frame
@@ -65,7 +39,7 @@ public class BallManager : MonoBehaviour
 		if (transform.position.y > 8.1 || transform.position.y < -8.1 )
 		{
             _roundHadWinner = false;
-            ballInstance.SetActive(false);
+            _ballInstance.SetActive(false);
         }
 
         //If the ball somehow ends up in a state where it's going up and down, nudge it in the right direction.
@@ -80,7 +54,42 @@ public class BallManager : MonoBehaviour
             GetComponent<Rigidbody>().velocity = new Vector3(-2, 2, 0);
         }
 
-	
+    }
+
+    private GameObject getBall()
+    {
+        return _ballInstance;
+    }
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "LeftWall")
+        {
+            _playerScoredLast = false;
+            _roundHadWinner = true;
+            _ballInstance.SetActive(false);
+        }
+        if (collision.gameObject.name == "RightWall")
+        {
+            _playerScoredLast = true;
+            _roundHadWinner = true;
+            _ballInstance.SetActive(false);
+        }
+
+        //Bounce in a direction depending on where it hits the player's paddle.
+        if (collision.gameObject.name == "Player")
+        {
+            if (transform.position.y <= collision.transform.position.y - .3)
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(4, -3, 0);
+            }
+            if (transform.position.y >= collision.transform.position.y + .3)
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(4, 3, 0);
+            }
+
+        }
 
     }
 }

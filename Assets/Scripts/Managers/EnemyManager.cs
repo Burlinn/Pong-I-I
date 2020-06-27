@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
+public class EnemyManager : MonoBehaviour {
 
     public int speed = 10;
     public GameObject ball;

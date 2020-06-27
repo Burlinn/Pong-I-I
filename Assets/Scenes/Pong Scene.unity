@@ -2263,18 +2263,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 430413671}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1776464643 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114622823876675154, guid: 42dbcb178fe18d642a37ee8519a1506f,
-    type: 3}
-  m_PrefabInstance: {fileID: 430413671}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776464642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f61eab5db076f8469ab14d00f3ec716, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1803525124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,8 +2414,6 @@ MonoBehaviour:
   _scoreToWin: 10
   _playerScoredLast: 1
   _startingScore: 0
-  _ballManager: {fileID: 1776464643}
-  _ball: {fileID: 1776464642}
   _gameMessageText: {fileID: 897270664}
   _playerScoreText: {fileID: 686544092}
   _enemyScoreText: {fileID: 160893841}
