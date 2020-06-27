@@ -10,23 +10,23 @@ public class GameManager : MonoBehaviour
     public float _gameSpeed = 5;
 
     //Two variables to hold our scores
-    public int playerScore;
-    public int enemyScore;
-    public float roundStartDelay = 0f;
-    public float gameOverDelay = 3f;
-    public float roundOverDelay = 0f;
-    Vector3[] playerStartingVectors = new Vector3[4];
-	Vector3[] enemyStartingVectors = new Vector3[4];
-    public int ballSpawnFromPlayer;
-    public int ballSpawnFromEnemy;
-    public int scoreToWin;
-	public bool playerScoredLast = true;
-    public int startingScore;
-    public BallManager ballManager;
-    public GameObject ball;
-    public Text gameMessageText;
-    public Text playerScoreText;
-    public Text enemyScoreText;
+    public int _playerScore;
+    public int _enemyScore;
+    public float _roundStartDelay = 0f;
+    public float _gameOverDelay = 3f;
+    public float _roundOverDelay = 0f;
+    private Vector3[] _playerStartingVectors = new Vector3[4];
+	private Vector3[] _enemyStartingVectors = new Vector3[4];
+    public int _ballSpawnFromPlayer = -10;
+    public int _ballSpawnFromEnemy = 10;
+    public int _scoreToWin = 10;
+	public bool _playerScoredLast = true;
+    public int _startingScore;
+    public BallManager _ballManager;
+    public GameObject _ball;
+    public Text _gameMessageText;
+    public Text _playerScoreText;
+    public Text _enemyScoreText;
     
 
     private WaitForSeconds gameOverWait;
@@ -35,25 +35,25 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
-        gameOverWait = new WaitForSeconds(gameOverDelay);
-        roundStartWait = new WaitForSeconds(roundStartDelay);
+        gameOverWait = new WaitForSeconds(_gameOverDelay);
+        roundStartWait = new WaitForSeconds(_roundStartDelay);
 
 
-        gameMessageText.text = "";
-        playerScore = startingScore;
-        enemyScore = startingScore;
-        playerScoreText.text = playerScore.ToString();
-        enemyScoreText.text = enemyScore.ToString();
-        ballManager.ballInstance = ball;
+        _gameMessageText.text = "";
+        _playerScore = _startingScore;
+        _enemyScore = _startingScore;
+        _playerScoreText.text = _playerScore.ToString();
+        _enemyScoreText.text = _enemyScore.ToString();
+        _ballManager.ballInstance = _ball;
 
-        playerStartingVectors[0] = new Vector3(3, 2, 0);
-		playerStartingVectors[1] = new Vector3(3, -2, 0);
-		playerStartingVectors[2] = new Vector3(4, 3, 0);
-		playerStartingVectors[3] = new Vector3(4, -3, 0);
-		enemyStartingVectors[0] = new Vector3(-3, 2, 0);
-		enemyStartingVectors[1] = new Vector3(-3, -2, 0);
-		enemyStartingVectors[2] = new Vector3(-4, 3, 0);
-		enemyStartingVectors[3] = new Vector3(-4, -3, 0);
+        _playerStartingVectors[0] = new Vector3(3, 2, 0);
+		_playerStartingVectors[1] = new Vector3(3, -2, 0);
+		_playerStartingVectors[2] = new Vector3(4, 3, 0);
+		_playerStartingVectors[3] = new Vector3(4, -3, 0);
+		_enemyStartingVectors[0] = new Vector3(-3, 2, 0);
+		_enemyStartingVectors[1] = new Vector3(-3, -2, 0);
+		_enemyStartingVectors[2] = new Vector3(-4, 3, 0);
+		_enemyStartingVectors[3] = new Vector3(-4, -3, 0);
         StartCoroutine(GameLoop());
     }
 
@@ -91,32 +91,36 @@ public class GameManager : MonoBehaviour
     private IEnumerator RoundEnding()
     {
 
-        if (ballManager._playerScoredLast && ballManager._roundHadWinner)
+        if (_ballManager._playerScoredLast && _ballManager._roundHadWinner)
         {
-            playerScore++;
-            playerScoreText.text = playerScore.ToString();
+            _playerScore++;
+            _playerScoreText.text = _playerScore.ToString();
+            _playerScoredLast = true;
+
+
         }
-        else if(ballManager._roundHadWinner)
+        else if(_ballManager._roundHadWinner)
         {
-            enemyScore++;
-            enemyScoreText.text = enemyScore.ToString();
+            _enemyScore++;
+            _enemyScoreText.text = _enemyScore.ToString();
+            _playerScoredLast = false;
         }
 
-        ballManager._roundHadWinner = false;
+        _ballManager._roundHadWinner = false;
 
-        if (enemyScore == scoreToWin)
+        if (_enemyScore == _scoreToWin)
         {
-            gameMessageText.text = "You Lose!";
+            _gameMessageText.text = "You Lose!";
             yield return gameOverWait;
         }
-        else if(playerScore == scoreToWin)
+        else if(_playerScore == _scoreToWin)
         {
-            gameMessageText.text = "You Win!";
+            _gameMessageText.text = "You Win!";
             yield return gameOverWait;
         }
         else
         {
-            yield return roundOverDelay;
+            yield return _roundOverDelay;
         }
 
         
@@ -125,12 +129,12 @@ public class GameManager : MonoBehaviour
 
     private bool BallInPlay()
     {
-        return ballManager.ballInstance.activeSelf;
+        return _ballManager.ballInstance.activeSelf;
     }
 
     private bool GameHasWinner()
     {
-        if(playerScore == 10 || enemyScore == 10)
+        if(_playerScore == 10 || _enemyScore == 10)
         {
             return true;
         }
@@ -140,25 +144,25 @@ public class GameManager : MonoBehaviour
     public void ResetBall()
     {
 
-        ballManager.ballInstance.SetActive(true);
+        _ballManager.ballInstance.SetActive(true);
 
-        Vector3 startPosition = ballManager.ballInstance.GetComponent<Rigidbody>().position;
+        Vector3 startPosition = _ballManager.ballInstance.GetComponent<Rigidbody>().position;
 		Vector3 startingVector = new Vector3 ();
 
-		if (playerScoredLast == true) {
-			startingVector = playerStartingVectors[Random.Range(0, 4)];
-            startPosition.x = ballSpawnFromPlayer;
+		if (_playerScoredLast == true) {
+			startingVector = _playerStartingVectors[Random.Range(0, 4)];
+            startPosition.x = _ballSpawnFromPlayer;
         }
 
-		if (playerScoredLast == false) {
-			startingVector = enemyStartingVectors[Random.Range(0, 4)];
-            startPosition.x = ballSpawnFromEnemy;
+		if (_playerScoredLast == false) {
+			startingVector = _enemyStartingVectors[Random.Range(0, 4)];
+            startPosition.x = _ballSpawnFromEnemy;
         }
 
-		ballManager.ballInstance.GetComponent<Rigidbody>().velocity = startingVector;
+		_ballManager.ballInstance.GetComponent<Rigidbody>().velocity = startingVector;
             
         startPosition.y = 0;
-        ballManager.ballInstance.GetComponent<Rigidbody>().position = startPosition;
+        _ballManager.ballInstance.GetComponent<Rigidbody>().position = startPosition;
         
 
     }

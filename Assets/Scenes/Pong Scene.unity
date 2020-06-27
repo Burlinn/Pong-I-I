@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 160893840}
   - component: {fileID: 160893842}
   - component: {fileID: 160893841}
+  - component: {fileID: 160893843}
   m_Layer: 5
   m_Name: EnemyScore
   m_TagString: Untagged
@@ -522,6 +523,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160893839}
   m_CullTransparentMesh: 0
+--- !u!114 &160893843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160893839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &233274068
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,6 +731,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1164167391246236, guid: 42dbcb178fe18d642a37ee8519a1506f, type: 3}
+      propertyPath: m_Name
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 4511333110163676, guid: 42dbcb178fe18d642a37ee8519a1506f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -747,15 +767,17 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114622823876675154, guid: 42dbcb178fe18d642a37ee8519a1506f,
-        type: 3}
-      propertyPath: _constantBallSpeed
-      value: 20
+    - target: {fileID: 4511333110163676, guid: 42dbcb178fe18d642a37ee8519a1506f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114622823876675154, guid: 42dbcb178fe18d642a37ee8519a1506f,
-        type: 3}
-      propertyPath: _gameSpeed
-      value: 10
+    - target: {fileID: 4511333110163676, guid: 42dbcb178fe18d642a37ee8519a1506f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511333110163676, guid: 42dbcb178fe18d642a37ee8519a1506f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42dbcb178fe18d642a37ee8519a1506f, type: 3}
@@ -947,6 +969,7 @@ GameObject:
   - component: {fileID: 686544091}
   - component: {fileID: 686544093}
   - component: {fileID: 686544092}
+  - component: {fileID: 686544094}
   m_Layer: 5
   m_Name: PlayerScore
   m_TagString: Untagged
@@ -1015,6 +1038,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686544090}
   m_CullTransparentMesh: 0
+--- !u!114 &686544094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686544090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &716454239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,6 +1511,7 @@ GameObject:
   - component: {fileID: 897270663}
   - component: {fileID: 897270665}
   - component: {fileID: 897270664}
+  - component: {fileID: 897270666}
   m_Layer: 5
   m_Name: GameMessageText
   m_TagString: Untagged
@@ -1541,6 +1580,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 897270662}
   m_CullTransparentMesh: 0
+--- !u!114 &897270666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897270662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1.2, y: -1.2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &899228238
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,6 +2087,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1960656133924456, guid: f21711f500d4a11419a90703e90bae16, type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4722185105871416, guid: f21711f500d4a11419a90703e90bae16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.5
@@ -2065,16 +2123,23 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4722185105871416, guid: f21711f500d4a11419a90703e90bae16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722185105871416, guid: f21711f500d4a11419a90703e90bae16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722185105871416, guid: f21711f500d4a11419a90703e90bae16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114448214332634306, guid: f21711f500d4a11419a90703e90bae16,
         type: 3}
       propertyPath: ball
       value: 
       objectReference: {fileID: 1776464642}
-    - target: {fileID: 114448214332634306, guid: f21711f500d4a11419a90703e90bae16,
-        type: 3}
-      propertyPath: speed
-      value: 8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f21711f500d4a11419a90703e90bae16, type: 3}
 --- !u!1 &1649526811
@@ -2351,21 +2416,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _constantSpeed: 5
   _gameSpeed: 5
-  playerScore: 0
-  enemyScore: 0
-  roundStartDelay: 0
-  gameOverDelay: 3
-  roundOverDelay: 0
-  ballSpawnFromPlayer: -10
-  ballSpawnFromEnemy: 10
-  scoreToWin: 10
-  playerScoredLast: 1
-  startingScore: 0
-  ballManager: {fileID: 1776464643}
-  ball: {fileID: 1776464642}
-  gameMessageText: {fileID: 897270664}
-  playerScoreText: {fileID: 686544092}
-  enemyScoreText: {fileID: 160893841}
+  _playerScore: 0
+  _enemyScore: 0
+  _roundStartDelay: 0
+  _gameOverDelay: 3
+  _roundOverDelay: 0
+  _ballSpawnFromPlayer: -10
+  _ballSpawnFromEnemy: 10
+  _scoreToWin: 10
+  _playerScoredLast: 1
+  _startingScore: 0
+  _ballManager: {fileID: 1776464643}
+  _ball: {fileID: 1776464642}
+  _gameMessageText: {fileID: 897270664}
+  _playerScoreText: {fileID: 686544092}
+  _enemyScoreText: {fileID: 160893841}
 --- !u!1 &1900076952
 GameObject:
   m_ObjectHideFlags: 0
