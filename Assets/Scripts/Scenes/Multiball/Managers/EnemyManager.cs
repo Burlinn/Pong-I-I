@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class EnemyManager : MonoBehaviour {
+namespace Multiball
+{
+    public class EnemyManager : MonoBehaviour
+    {
 
-    public int speed = 10;
-    public GameObject ball;
+        public int _speed = 8;
 
-    // Update is called once per frame
-    void Update() {
-        if (ball != null) { 
+        public GameObject _ball;
+
+        // Update is called once per frame
+        void Update()
+        {
             //Make our enemy track the ball
-            if (ball.transform.position.y > transform.position.y)
+            if (_ball.transform.position.y > transform.position.y)
             {
-                transform.Translate(new Vector3(0, speed, 0) * Time.deltaTime);
+                transform.Translate(new Vector3(0, _speed, 0) * Time.deltaTime);
             }
-            if (ball.transform.position.y < transform.position.y)
+            if (_ball.transform.position.y < transform.position.y)
             {
-                transform.Translate(new Vector3(0, -speed, 0) * Time.deltaTime);
+                transform.Translate(new Vector3(0, -_speed, 0) * Time.deltaTime);
             }
 
             //Check top bounds
@@ -32,6 +35,6 @@ public class EnemyManager : MonoBehaviour {
                 holdAtBottom.y = -6.75f;
                 transform.position = holdAtBottom;
             }
-        }   
+        }
     }
 }

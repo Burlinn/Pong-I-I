@@ -1,179 +1,154 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
 
-    public float _constantSpeed = 5;
-    public float _gameSpeed = 5;
+    public static float _constantSpeed = 5;
+    public static float _gameSpeed = 5;
+    public static float _defaultGameSpeed = 5;
 
-    //Two variables to hold our scores
-    public int _playerScore;
-    public int _enemyScore;
-    public float _roundStartDelay = 0f;
-    public float _gameOverDelay = 3f;
-    public float _roundOverDelay = 0f;
-    public int _ballSpawnFromPlayer = -10;
-    public int _ballSpawnFromEnemy = 10;
-    public int _scoreToWin = 10;
-	public bool _playerScoredLast = true;
-    public int _startingScore;
-    public Text _gameMessageText;
-    public Text _playerScoreText;
-    public Text _enemyScoreText;
+    public static int _playerScore;
+    public static int _enemyScore;
+    public static float _roundStartDelay = 0f;
+    public static float _gameOverDelay = 3f;
+    public static float _roundOverDelay = 0f;
+    public static int _ballSpawnFromPlayer = -10;
+    public static int _ballSpawnFromEnemy = 10;
+    public static int _scoreToWin = 10;
+    public static int _startingScore;
+    private static bool _playerScoredLast = true;
+    
 
-    private Enums.GameStep _gameStep;
-    private Vector3[] _playerStartingVectors = new Vector3[4];
-    private Vector3[] _enemyStartingVectors = new Vector3[4];
-    private BallManager _ballManager;
-    private GameObject _ball;
-    private float _timer = 0;
-    private bool _winnerSet = false;
+    private static Enums.GameStep _gameStep;
+    private static Vector3[] _playerStartingVectors = new Vector3[4];
+    private static Vector3[] _enemyStartingVectors = new Vector3[4];
+    private static List<SceneHelper> _scenes;
+    private static System.Random random = new System.Random();
 
     // Use this for initialization
     public void Start()
     {
-        _gameMessageText.text = "";
-        _playerScoreText.text = _playerScore.ToString();
-        _enemyScoreText.text = _enemyScore.ToString();
-        _ball = GameObject.FindGameObjectWithTag("Ball");
-        _ballManager = _ball.GetComponent<BallManager>();
-
-        _playerStartingVectors[0] = new Vector3(3, 2, 0);
-		_playerStartingVectors[1] = new Vector3(3, -2, 0);
-		_playerStartingVectors[2] = new Vector3(4, 3, 0);
-		_playerStartingVectors[3] = new Vector3(4, -3, 0);
-		_enemyStartingVectors[0] = new Vector3(-3, 2, 0);
-		_enemyStartingVectors[1] = new Vector3(-3, -2, 0);
-		_enemyStartingVectors[2] = new Vector3(-4, 3, 0);
-		_enemyStartingVectors[3] = new Vector3(-4, -3, 0);
+        _scenes = new List<SceneHelper>();
+        LoadStartingVectors();
+        LoadSceneList();
         _gameStep = Enums.GameStep.RoundStarting;
     }
 
-    public void Update()
+
+    public static int GetPlayerScore()
     {
-        if(_gameStep == Enums.GameStep.RoundStarting)
+        return _playerScore;
+    }
+
+    public static void SetPlayerScore(int playerScore)
+    {
+        _playerScore = playerScore;
+    }
+
+    public static int GetEnemyScore()
+    {
+        return _enemyScore;
+    }
+
+    public static void SetEnemyScore(int enemyScore)
+    {
+        _enemyScore = enemyScore;
+    }
+
+    public static string GetNextScene()
+    {
+        List<SceneHelper> unplayedScenes = _scenes.Where(x => x.ScenePlayed == false).ToList();
+        int index = random.Next(unplayedScenes.Count);
+        string nextScene = unplayedScenes[index].SceneName;
+        _scenes.Where(x => x.SceneName.Equals(nextScene)).First().ScenePlayed = true;
+        return unplayedScenes[index].SceneName;
+    }
+
+    public static List<SceneHelper> GetScenes()
+    {
+        return _scenes;
+    }
+
+    public static void ResetScenes()
+    {
+        foreach(SceneHelper scene in _scenes)
         {
-            RoundStarting();
-        }
-        if(_gameStep == Enums.GameStep.RoundPlaying)
-        {
-            RoundPlaying();
-        }
-        if(_gameStep == Enums.GameStep.RoundEnding)
-        {
-            if (GameHasWinner())
-            {
-                _winnerSet = true;
-            }
-            RoundEnding();
+            scene.ScenePlayed = false;
         }
     }
 
-    private void RoundStarting()
+    public static Enums.GameStep GetGameStep()
     {
-        ResetBall();
-        _gameStep = Enums.GameStep.RoundPlaying;
+        return _gameStep;
     }
 
-    private void RoundPlaying()
+    public static void SetGameStep(Enums.GameStep gameStep)
     {
-        if (!BallInPlay())
-        {
-            _gameStep = Enums.GameStep.RoundEnding;
-        }
+        _gameStep = gameStep;
     }
 
-    private void RoundEnding()
+    private void LoadStartingVectors()
     {
-        if (!_winnerSet)
-        { 
-            if (_ballManager._playerScoredLast && _ballManager._roundHadWinner)
-            {
-                _playerScore++;
-                _playerScoreText.text = _playerScore.ToString();
-                _playerScoredLast = true;
-
-
-            }
-            else if(_ballManager._roundHadWinner)
-            {
-                _enemyScore++;
-                _enemyScoreText.text = _enemyScore.ToString();
-                _playerScoredLast = false;
-            }
-
-            _ballManager._roundHadWinner = false;
-
-            if (_enemyScore == _scoreToWin)
-            {
-                _gameMessageText.text = "You Lose!";
-            }
-            else if(_playerScore == _scoreToWin)
-            {
-                _gameMessageText.text = "You Win!";
-            }
-            else
-            {
-                _gameStep = Enums.GameStep.RoundStarting;
-            }
-
-        } else {
-            _timer += Time.deltaTime;
-
-            if (_timer > _gameOverDelay)
-            {
-                SceneManager.LoadScene(0);
-            }
-        }
-
+        _playerStartingVectors[0] = new Vector3(3, 2, 0);
+        _playerStartingVectors[1] = new Vector3(3, -2, 0);
+        _playerStartingVectors[2] = new Vector3(4, 3, 0);
+        _playerStartingVectors[3] = new Vector3(4, -3, 0);
+        _enemyStartingVectors[0] = new Vector3(-3, 2, 0);
+        _enemyStartingVectors[1] = new Vector3(-3, -2, 0);
+        _enemyStartingVectors[2] = new Vector3(-4, 3, 0);
+        _enemyStartingVectors[3] = new Vector3(-4, -3, 0);
     }
 
-
-    private bool BallInPlay()
+    public static Vector3[] GetPlayerStartingVectors()
     {
-        return _ball.activeSelf;
+        return _playerStartingVectors;
     }
 
-    private bool GameHasWinner()
+    public static Vector3[] GetEnemyStartingVectors()
     {
-        if(_playerScore == 10 || _enemyScore == 10)
+        return _enemyStartingVectors;
+    }
+
+    private void LoadSceneList()
+    {
+        _scenes.Add(new SceneHelper("Pong", true));
+        _scenes.Add(new SceneHelper("Multiball", false));
+    }
+
+    public static float GetGameSpeed()
+    {
+        return _gameSpeed;
+    }
+
+    public static void SetGameSpeed(int gameSpeed)
+    {
+        _gameSpeed = gameSpeed;
+    }
+
+    public static bool GetPlayerScoredLast()
+    {
+        return _playerScoredLast;
+    }
+
+    public static void SetPlayerScoredLast(bool playerScoredLast)
+    {
+        _playerScoredLast = playerScoredLast;
+    }
+
+    public static int GetScoreToWin()
+    {
+        return _scoreToWin;
+    }
+
+    public static bool GameHasWinner()
+    {
+        if (_playerScore == _scoreToWin || _enemyScore == _scoreToWin)
         {
             return true;
         }
         return false;
     }
-
-    public void ResetBall()
-    {
-
-        _ball.SetActive(true);
-
-        Vector3 startPosition = _ball.GetComponent<Rigidbody>().position;
-		Vector3 startingVector = new Vector3 ();
-
-		if (_playerScoredLast == true) {
-			startingVector = _playerStartingVectors[Random.Range(0, 4)];
-            startPosition.x = _ballSpawnFromPlayer;
-        }
-
-		if (_playerScoredLast == false) {
-			startingVector = _enemyStartingVectors[Random.Range(0, 4)];
-            startPosition.x = _ballSpawnFromEnemy;
-        }
-
-
-        _ball.GetComponent<Rigidbody>().velocity = startingVector;
-            
-        startPosition.y = 0;
-        _ball.GetComponent<Rigidbody>().position = startPosition;
-        
-
-    }
-
-
- 
-
 }

@@ -4,4 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Pong.unity
+    guid: d0dc194afb2964849b6757931d3313ae
+  - enabled: 1
+    path: Assets/Scenes/Multiball.unity
+    guid: 5333f02dd0afbd7438656d6274c04b1f
+  m_configObjects: {}

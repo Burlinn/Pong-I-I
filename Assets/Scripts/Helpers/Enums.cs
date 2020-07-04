@@ -1,10 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
-public class Enums {
-
+﻿public class Enums {
     public enum GameStep
     {
         RoundStarting = 1,
