@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Multiball
+namespace Invisiball
 {
-    public class MultiballManager : MonoBehaviour
+    public class InvisiballManager : MonoBehaviour
     {
 
         public float _roundStartDelay = 0f;
@@ -17,25 +15,19 @@ namespace Multiball
         public Text _playerScoreText;
         public Text _enemyScoreText;
         public Text _gameMessageText;
-        public float _ballSpawnDelay = .03f;
-        public float _multiballSpawnTimer;
-        public GameObject _ballPrefab;
 
         private static BallManager _ballManager;
-        private static List<GameObject> _balls;
+        private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
         private static System.Random random = new System.Random();
-        private static Vector3 _nextBallSpawnPoint;
-        private static bool _ballSpawnTimerStarted;
-        private static bool _ballLastHitPlayer;
 
         // Use this for initialization
         public void Start()
         {
             _gameMessageText.text = "";
-            _balls = new List<GameObject>();
-            _balls.Add(GameObject.FindGameObjectWithTag("Ball"));
+            _ball = GameObject.FindGameObjectWithTag("Ball");
+            _ballManager = _ball.GetComponent<Invisiball.BallManager>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
         }
@@ -60,29 +52,9 @@ namespace Multiball
             }
         }
 
-        public Vector3 GetNextBallSpawnPoint()
+        public static GameObject GetBall()
         {
-            return _nextBallSpawnPoint;
-        }
-
-        public void SetNextBallSpawnPoint(Vector3 nextBallSpawnPoint)
-        {
-            _nextBallSpawnPoint = nextBallSpawnPoint;
-        }
-
-        public void StartBallSpawnTimer()
-        {
-            _ballSpawnTimerStarted = true;
-        }
-
-        public void SetBallLastHitPlayer(bool ballLastHitPlayer)
-        {
-            _ballLastHitPlayer = ballLastHitPlayer;
-        }
-
-        public static List<GameObject> GetBalls()
-        {
-            return _balls;
+            return _ball;
         }
 
         private void RoundStarting()
@@ -93,19 +65,9 @@ namespace Multiball
 
         private void RoundPlaying()
         {
-            if (!AllBallsInPlay())
+            if (!BallInPlay())
             {
                 GameManager.SetGameStep(Enums.GameStep.RoundEnding);
-            }
-
-            if(_ballSpawnTimerStarted)
-            {
-                _multiballSpawnTimer += Time.deltaTime;
-
-                if (_multiballSpawnTimer > _ballSpawnDelay)
-                {
-                    CreateNewBall();
-                }
             }
         }
 
@@ -113,7 +75,7 @@ namespace Multiball
         {
             if (!_winnerSet)
             {
-                if (GameManager.GetPlayerScoredLast() && GameManager.GetRoundHadWinner())
+                if (_ballManager._playerScoredLast && _ballManager._roundHadWinner)
                 {
                     GameManager.SetPlayerScore(GameManager.GetPlayerScore() + 1);
                     _playerScoreText.text = GameManager.GetPlayerScore().ToString();
@@ -121,13 +83,14 @@ namespace Multiball
 
 
                 }
-                else if (GameManager.GetRoundHadWinner())
+                else if (_ballManager._roundHadWinner)
                 {
                     GameManager.SetEnemyScore(GameManager.GetEnemyScore() + 1);
                     _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
                     GameManager.SetPlayerScoredLast(false);
                 }
-                GameManager.SetRoundHadWinner(false);
+
+                _ballManager._roundHadWinner = false;
 
                 if (GameManager.GetEnemyScore() == GameManager.GetScoreToWin())
                 {
@@ -158,44 +121,17 @@ namespace Multiball
 
         }
 
-        private bool AllBallsInPlay()
+        private bool BallInPlay()
         {
-            return _balls.Where(x => !x.activeSelf).Count() == 0;
-        }
-
-        public void CreateNewBall()
-        {
-            Vector3 startingVector = new Vector3();
-            Vector3 startPosition = new Vector3();
-
-            GameObject newBall = Instantiate(_ballPrefab, _nextBallSpawnPoint, Quaternion.identity);
-            _balls.Add(newBall);
-            if (_ballLastHitPlayer == true)
-            {
-                startingVector = GameManager.GetPlayerStartingVectors()[Random.Range(0, 4)];
-                startPosition.x = _ballSpawnFromPlayer;
-            }
-
-            if (_ballLastHitPlayer == false)
-            {
-                startingVector = GameManager.GetEnemyStartingVectors()[Random.Range(0, 4)];
-                startPosition.x = _ballSpawnFromEnemy;
-            }
-            _ballSpawnTimerStarted = false;
-            _multiballSpawnTimer = 0;
-            newBall.GetComponent<Rigidbody>().velocity = startingVector;
-
-            startPosition.y = 0;
-            newBall.GetComponent<Rigidbody>().position = startPosition;
+            return _ball.activeSelf;
         }
 
         public void ResetBall()
         {
-            GameObject startingBall = _balls.First();
-            _balls.Clear();
-            _balls.Add(startingBall);
 
-            Vector3 startPosition = _balls.First().GetComponent<Rigidbody>().position;
+            _ball.SetActive(true);
+
+            Vector3 startPosition = _ball.GetComponent<Rigidbody>().position;
             Vector3 startingVector = new Vector3();
 
             if (GameManager.GetPlayerScoredLast() == true)
@@ -211,10 +147,10 @@ namespace Multiball
             }
 
 
-            _balls.First().GetComponent<Rigidbody>().velocity = startingVector;
+            _ball.GetComponent<Rigidbody>().velocity = startingVector;
 
             startPosition.y = 0;
-            _balls.First().GetComponent<Rigidbody>().position = startPosition;
+            _ball.GetComponent<Rigidbody>().position = startPosition;
 
 
         }

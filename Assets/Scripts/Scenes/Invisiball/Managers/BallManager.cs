@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-namespace Pong { 
+namespace Invisiball { 
     public class BallManager : MonoBehaviour
     {
         //Speed of the ball
@@ -13,6 +14,8 @@ namespace Pong {
 	    public bool _playerScoredLast = true;
         public bool _roundHadWinner = false;
         private GameObject _ballInstance;
+        private float _currentLocation;
+        private float _transparency;
 
         public void Start()
         {
@@ -26,7 +29,14 @@ namespace Pong {
             Vector3 ballSpeed = ballVelocity.normalized * _constantBallSpeed;
             GetComponent<Rigidbody>().velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
 
+            _currentLocation = Math.Abs(GetComponent<Rigidbody>().position.x);
+            //On a white material, transparency takes affect when the alpha channel is down to .01. Dividing by 30 to make
+            //it EXTRA invisible.
+            _transparency = _currentLocation / 12.5f / 30;
 
+            var color = this.gameObject.GetComponent<Renderer>().material.color;
+            color.a = _transparency;
+            this.gameObject.GetComponent<Renderer>().material.SetColor("_Color",color);
 
             //If we hit the top or the bottom, bounce off of them. s
             if (transform.position.y > 8 || transform.position.y < -8)

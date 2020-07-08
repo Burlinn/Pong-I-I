@@ -6,18 +6,15 @@ namespace Multiball
     public class BallManager : MonoBehaviour
     {
         //Speed of the ball
-        public float _constantBallSpeed = 5;
+        public float _constantBallSpeed = 20;
         //Used to manipulate delta time
-        public float _gameSpeed = 5;
+        public float _gameSpeed = 10;
 
-        //Two variables to hold our scores
-        public bool _playerScoredLast = true;
-        public bool _roundHadWinner = false;
-        private GameObject _ballInstance;
+        public static MultiballManager _scene;
 
-        public void Start()
+        private void Start()
         {
-            _ballInstance = this.gameObject;
+            _scene = GameObject.FindGameObjectWithTag("Scene").GetComponent<MultiballManager>();
         }
 
         // Update is called once per frame
@@ -39,8 +36,8 @@ namespace Multiball
             //If we somehow make it past the cieling or floor, despawn the ball
             if (transform.position.y > 8.1 || transform.position.y < -8.1)
             {
-                _roundHadWinner = false;
-                _ballInstance.SetActive(false);
+                GameManager.SetRoundHadWinner(false);
+                this.gameObject.SetActive(false);
             }
 
             //If the ball somehow ends up in a state where it's going up and down, nudge it in the right direction.
@@ -57,25 +54,19 @@ namespace Multiball
 
         }
 
-        private GameObject getBall()
-        {
-            return _ballInstance;
-        }
-
-
         void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.name == "LeftWall")
             {
-                _playerScoredLast = false;
-                _roundHadWinner = true;
-                _ballInstance.SetActive(false);
+                GameManager.SetPlayerScoredLast(false);
+                GameManager.SetRoundHadWinner(true);
+                this.gameObject.SetActive(false);
             }
             if (collision.gameObject.name == "RightWall")
             {
-                _playerScoredLast = true;
-                _roundHadWinner = true;
-                _ballInstance.SetActive(false);
+                GameManager.SetPlayerScoredLast(true);
+                GameManager.SetRoundHadWinner(true);
+                this.gameObject.SetActive(false);
             }
 
             //Bounce in a direction depending on where it hits the player's paddle.
@@ -89,7 +80,15 @@ namespace Multiball
                 {
                     GetComponent<Rigidbody>().velocity = new Vector3(4, 3, 0);
                 }
+                _scene.SetNextBallSpawnPoint(this.GetComponent<Rigidbody>().position);
+                _scene.StartBallSpawnTimer();
+                _scene.SetBallLastHitPlayer(true);
 
+            } else if (collision.gameObject.name == "Enemy")
+            {
+                _scene.SetNextBallSpawnPoint(this.GetComponent<Rigidbody>().position);
+                _scene.StartBallSpawnTimer();
+                _scene.SetBallLastHitPlayer(false);
             }
 
         }

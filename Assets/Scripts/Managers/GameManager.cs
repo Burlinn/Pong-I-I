@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     public static int _scoreToWin = 10;
     public static int _startingScore;
     private static bool _playerScoredLast = true;
-    
+    public static bool _roundHadWinner = false;
+
 
     private static Enums.GameStep _gameStep;
     private static Vector3[] _playerStartingVectors = new Vector3[4];
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
         LoadStartingVectors();
         LoadSceneList();
         _gameStep = Enums.GameStep.RoundStarting;
+        DontDestroyOnLoad(this.gameObject);
     }
 
 
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour
     {
         _scenes.Add(new SceneHelper("Pong", true));
         _scenes.Add(new SceneHelper("Multiball", false));
+        _scenes.Add(new SceneHelper("Invisiball", false));
     }
 
     public static float GetGameSpeed()
@@ -136,6 +139,16 @@ public class GameManager : MonoBehaviour
     public static void SetPlayerScoredLast(bool playerScoredLast)
     {
         _playerScoredLast = playerScoredLast;
+    }
+
+    public static bool GetRoundHadWinner()
+    {
+        return _roundHadWinner;
+    }
+
+    public static void SetRoundHadWinner(bool roundHadWinner)
+    {
+        _roundHadWinner = roundHadWinner;
     }
 
     public static int GetScoreToWin()
