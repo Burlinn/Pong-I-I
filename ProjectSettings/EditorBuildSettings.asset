@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Invisiball.unity
     guid: 6ad3ced78588eb64688b19e91ca53ab0
+  - enabled: 1
+    path: Assets/Scenes/Missile.unity
+    guid: 9f8da3a9b1b32c046b038f36e992e3fd
   m_configObjects: {}

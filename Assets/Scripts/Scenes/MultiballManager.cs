@@ -80,7 +80,7 @@ namespace Multiball
             _ballLastHitPlayer = ballLastHitPlayer;
         }
 
-        public static List<GameObject> GetBalls()
+        public List<GameObject> GetBalls()
         {
             return _balls;
         }

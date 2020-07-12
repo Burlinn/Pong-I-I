@@ -16,6 +16,7 @@ namespace Missile
         // Update is called once per frame
         void Update()
         {
+            //Once the explosion particle effect has finish, self destruct.
             _timer += Time.deltaTime;
 
             if (_timer > _timeToDestory)

@@ -37,10 +37,13 @@ namespace Missile
 
         public void Update()
         {
+
+            //If the player has been hit, display this message. 
             if (_playerHit)
             {
                 _fireText.text = "ERROR! HIT!";
             }
+            //If the player is able to fire, display this message.
             else if (_canFire)
             {
                 _fireText.text = "Press SPACE to Fire";
@@ -72,22 +75,26 @@ namespace Missile
             return _ball;
         }
 
+        //Can Fire indicates the player can fire a missile
         public void CanFire(bool canFire)
         {
             _canFire = canFire;
         }
 
+        //Player hit indicates the player was hit by an enemy missile
         public void PlayerHit(bool playerHit)
         {
             _playerHit = playerHit;
         }
 
+        //Reset the ball and give it a random vector depending on the winner of the last round.
         private void RoundStarting()
         {
             ResetBall();
             GameManager.SetGameStep(Enums.GameStep.RoundPlaying);
         }
 
+        //While the ball is in play, the round isn't over yet.
         private void RoundPlaying()
         {
             if (!BallInPlay())
@@ -100,6 +107,7 @@ namespace Missile
         {
             if (!_winnerSet)
             {
+                //Update the winners score, and keep track of who won the round
                 if (_ballManager._playerScoredLast && _ballManager._roundHadWinner)
                 {
                     GameManager.SetPlayerScore(GameManager.GetPlayerScore() + 1);
@@ -115,8 +123,7 @@ namespace Missile
                     GameManager.SetPlayerScoredLast(false);
                 }
 
-                _ballManager._roundHadWinner = false;
-
+                //If the game is over, display the winner.
                 if (GameManager.GetEnemyScore() == GameManager.GetScoreToWin())
                 {
                     _gameMessageText.text = "You Lose!";
@@ -127,6 +134,7 @@ namespace Missile
                 }
                 else
                 {
+                    //If the game's not over, load a random unplayed scene.
                     string scene = GameManager.GetNextScene();
                     SceneManager.LoadScene(scene);
                     GameManager.SetGameStep(Enums.GameStep.RoundStarting);
@@ -135,6 +143,7 @@ namespace Missile
             }
             else
             {
+                //If a player has won enough games to be crown winner, reset the game.
                 _timer += Time.deltaTime;
 
                 if (_timer > _gameOverDelay)
@@ -151,6 +160,7 @@ namespace Missile
             return _ball.activeSelf;
         }
 
+        //Give the ball a random starting vector depending on who won the last round.
         public void ResetBall()
         {
 

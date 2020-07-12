@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 8
-  _ball: {fileID: 1029780038}
+  _balls: []
 --- !u!23 &705562936
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1886,12 +1886,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944224227}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1029780038 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4662424664045227891, guid: 522b11b5750023b4b92447a189569d1c,
-    type: 3}
-  m_PrefabInstance: {fileID: 4662424664928075061}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1069293457
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,6 +2794,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 4662424664045227890, guid: 522b11b5750023b4b92447a189569d1c,
+        type: 3}
+      propertyPath: _constantBallSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4662424664045227897, guid: 522b11b5750023b4b92447a189569d1c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2854,11 +2853,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662424664045227890, guid: 522b11b5750023b4b92447a189569d1c,
-        type: 3}
-      propertyPath: _constantBallSpeed
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 522b11b5750023b4b92447a189569d1c, type: 3}

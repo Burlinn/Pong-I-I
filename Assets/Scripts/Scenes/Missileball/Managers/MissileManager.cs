@@ -18,6 +18,7 @@ namespace Missile
 
         private void Start()
         {
+            //Create our smoke trail
             _particleSystem = this.gameObject.GetComponent<ParticleSystem>();
             _particleSystem.Play();
         }
@@ -28,6 +29,7 @@ namespace Missile
             if (!_startingVectorSet)
             {
                 int startingVectorX = 0;
+                //Figure out if we're a player or an enemy missile.
                 if (transform.rotation.eulerAngles.z == 270)
                 {
                     startingVectorX = 3;
@@ -38,6 +40,7 @@ namespace Missile
                     startingVectorX = -3;
                     _isPlayerMissile = false;
                 }
+                //Begin moving the missile in a straight line.
                 this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(startingVectorX, 0, 0);
                 _startingVectorSet = true;
             }
@@ -54,6 +57,7 @@ namespace Missile
 
             Instantiate(_explosion, this.transform.position, Quaternion.identity);
 
+            //If we hit a ball, then the ball should shoot off in the direction it was hit into.
             if (collision.gameObject.name == "Ball")
             {
                 if (_isPlayerMissile)
@@ -66,6 +70,7 @@ namespace Missile
                 }
             }
 
+            //If we hit a player or enemy, they're stunned for some amount of time.
             if (collision.gameObject.name == "Player")
             {
                 collision.gameObject.GetComponent<PlayerManager>().Shot();
@@ -80,9 +85,5 @@ namespace Missile
 
         }
 
-        public void SetIsPlayerMissile(bool isPlayerMissile)
-        {
-            _isPlayerMissile = isPlayerMissile;
-        }
     }
 }

@@ -28,7 +28,7 @@ namespace Pong {
 
 
 
-            //If we hit the top or the bottom, bounce off of them. s
+            //If we hit the top or the bottom, bounce off of them. 
             if (transform.position.y > 8 || transform.position.y < -8)
             {
                 Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
@@ -64,6 +64,7 @@ namespace Pong {
 
         void OnCollisionEnter(Collision collision)
         {
+			//Set the round winner
             if (collision.gameObject.name == "LeftWall")
             {
                 _playerScoredLast = false;
@@ -87,6 +88,20 @@ namespace Pong {
                 if (transform.position.y >= collision.transform.position.y + .3)
                 {
                     GetComponent<Rigidbody>().velocity = new Vector3(4, 3, 0);
+                }
+
+            }
+			
+			//Bounce in a direction depending on where it hits the enemy's paddle.
+            if (collision.gameObject.name == "Enemy")
+            {
+                if (transform.position.y <= collision.transform.position.y - .3)
+                {
+                    GetComponent<Rigidbody>().velocity = new Vector3(-4, -3, 0);
+                }
+                if (transform.position.y >= collision.transform.position.y + .3)
+                {
+                    GetComponent<Rigidbody>().velocity = new Vector3(-4, 3, 0);
                 }
 
             }

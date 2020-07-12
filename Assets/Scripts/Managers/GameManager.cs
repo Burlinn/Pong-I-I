@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
         _scenes.Add(new SceneHelper("Pong", true));
         _scenes.Add(new SceneHelper("Multiball", false));
         _scenes.Add(new SceneHelper("Invisiball", false));
+        _scenes.Add(new SceneHelper("Missile", false));
     }
 
     public static float GetGameSpeed()

@@ -28,6 +28,8 @@ namespace Missile
         void Update()
         {
             Vector3 ballVelocity = GetComponent<Rigidbody>().velocity;
+
+            //If the ball has been hit by a missile, it shoots forward
             if (_shotByPlayer)
             {
                 ballVelocity = new Vector3(ballVelocity.x + _shotVelocity, ballVelocity.y, ballVelocity.z);
@@ -39,7 +41,7 @@ namespace Missile
             Vector3 ballSpeed = ballVelocity.normalized * _constantBallSpeed;
             GetComponent<Rigidbody>().velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
 
-            //If we hit the top or the bottom, bounce off of them. s
+            //If we hit the top or the bottom, bounce off of them. 
             if (transform.position.y > 8 || transform.position.y < -8)
             {
                 Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
@@ -72,6 +74,7 @@ namespace Missile
             return _ballInstance;
         }
 
+        //Let the ball know who it was hit by so we know what direction to shoot it off in.
         public void IsShot(bool byPlayer)
         {
             if (byPlayer)
@@ -87,6 +90,7 @@ namespace Missile
 
         void OnCollisionEnter(Collision collision)
         {
+            //Set the round winner
             if (collision.gameObject.name == "LeftWall")
             {
                 _playerScoredLast = false;
@@ -115,6 +119,7 @@ namespace Missile
 
             }
 
+            //Bounce in a direction depending on where it hits the enemy's paddle.
             if (collision.gameObject.name == "Enemy")
             {
                 _shotByPlayer = false;

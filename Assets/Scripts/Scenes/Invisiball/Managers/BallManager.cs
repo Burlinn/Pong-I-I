@@ -30,15 +30,25 @@ namespace Invisiball {
             GetComponent<Rigidbody>().velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
 
             _currentLocation = Math.Abs(GetComponent<Rigidbody>().position.x);
-            //On a white material, transparency takes affect when the alpha channel is down to .01. Dividing by 30 to make
+            //On a white material, transparency takes affect when the alpha channel is down to .01. Dividing by 50 to make
             //it EXTRA invisible.
-            _transparency = _currentLocation / 12.5f / 30;
+            _transparency = _currentLocation / 12.5f / 50;
 
             var color = this.gameObject.GetComponent<Renderer>().material.color;
             color.a = _transparency;
             this.gameObject.GetComponent<Renderer>().material.SetColor("_Color",color);
 
-            //If we hit the top or the bottom, bounce off of them. s
+            //Make ball invisible as it gets close to players.
+            if(this.transform.position.x > 6 || this.transform.position.x < -6)
+            {
+                this.GetComponent<MeshRenderer>().enabled = false;
+            }
+            else
+            {
+                this.GetComponent<MeshRenderer>().enabled = true;
+            }
+
+            //If we hit the top or the bottom, bounce off of them. 
             if (transform.position.y > 8 || transform.position.y < -8)
             {
                 Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
@@ -74,6 +84,7 @@ namespace Invisiball {
 
         void OnCollisionEnter(Collision collision)
         {
+			//Set the round winner
             if (collision.gameObject.name == "LeftWall")
             {
                 _playerScoredLast = false;
@@ -97,6 +108,20 @@ namespace Invisiball {
                 if (transform.position.y >= collision.transform.position.y + .3)
                 {
                     GetComponent<Rigidbody>().velocity = new Vector3(4, 3, 0);
+                }
+
+            }
+			
+			//Bounce in a direction depending on where it hits the enemy's paddle.
+            if (collision.gameObject.name == "Enemy")
+            {
+                if (transform.position.y <= collision.transform.position.y - .3)
+                {
+                    GetComponent<Rigidbody>().velocity = new Vector3(-4, -3, 0);
+                }
+                if (transform.position.y >= collision.transform.position.y + .3)
+                {
+                    GetComponent<Rigidbody>().velocity = new Vector3(-4, 3, 0);
                 }
 
             }

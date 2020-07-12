@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace Multiball
 {
@@ -6,18 +7,27 @@ namespace Multiball
     {
 
         public int _speed = 8;
+        public List<GameObject> _balls;
+        
+        private MultiballManager _scene;
+        private GameObject _closestBall;
 
-        public GameObject _ball;
+        private void Start()
+        {
+            _scene = GameObject.Find("SceneManager").GetComponent<MultiballManager>();
+        }
 
         // Update is called once per frame
         void Update()
         {
-            //Make our enemy track the ball
-            if (_ball.transform.position.y > transform.position.y)
+            GetClosestBall();
+
+            //Make our enemy tracks the nearest ball
+            if (_closestBall.transform.position.y > transform.position.y)
             {
                 transform.Translate(new Vector3(0, _speed, 0) * Time.deltaTime);
             }
-            if (_ball.transform.position.y < transform.position.y)
+            if (_closestBall.transform.position.y < transform.position.y)
             {
                 transform.Translate(new Vector3(0, -_speed, 0) * Time.deltaTime);
             }
@@ -34,6 +44,21 @@ namespace Multiball
                 Vector3 holdAtBottom = transform.position;
                 holdAtBottom.y = -6.75f;
                 transform.position = holdAtBottom;
+            }
+        }
+
+        //Find the ball closest to the Enemy
+        private void GetClosestBall()
+        {
+            _balls = _scene.GetBalls();
+            float farthestX = -12.5f;
+            foreach(GameObject ball in _balls)
+            {
+                if(ball.transform.position.x > farthestX)
+                {
+                    farthestX = ball.transform.position.x;
+                    _closestBall = ball;
+                }
             }
         }
     }

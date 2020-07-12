@@ -2409,7 +2409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f61eab5db076f8469ab14d00f3ec716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constantBallSpeed: 20
+  _constantBallSpeed: 25
   _gameSpeed: 10
   _playerScoredLast: 1
   _roundHadWinner: 0

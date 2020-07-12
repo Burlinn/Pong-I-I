@@ -29,8 +29,9 @@ namespace Missile
         // Update is called once per frame
         void Update()
         {
-            _shotTimer += Time.deltaTime;
 
+            //If player can shoot, display Can Shoot message.
+            _shotTimer += Time.deltaTime;
             if(_shotTimer > _timeBetweenShots)
             {
                 _scene.CanFire(true);
@@ -40,6 +41,7 @@ namespace Missile
                 _scene.CanFire(false);
             }
 
+            //If play has been hit, count down until they can move again. Display hit message.
             if (_isShot)
             {
                 _stuckTimer += Time.deltaTime;
@@ -52,6 +54,7 @@ namespace Missile
                 _scene.PlayerHit(true);
             }
 
+            //If we can shoot, allow player to move. Otherwise, player is stuck. 
             if (!_isShot) { 
                 if (Input.GetButton("UP"))
                 {
@@ -65,6 +68,7 @@ namespace Missile
                 }
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    //Spawn a missile, and start the timer until the player can shoot again.
                     if (_shotTimer > _timeBetweenShots)
                     {
                         _missileSpawnPoint = this.transform.position;
@@ -77,7 +81,7 @@ namespace Missile
             }
 
 
-            //Check top bounds
+            //Don't allow the player to move out of bounds
             if (transform.position.y > 6.75)
             {
                 Vector3 holdAtTop = transform.position;
@@ -92,6 +96,7 @@ namespace Missile
             }
         }
 
+        //Set Is Shot and create a neat explosion.
         public void Shot()
         {
             _isShot = true;

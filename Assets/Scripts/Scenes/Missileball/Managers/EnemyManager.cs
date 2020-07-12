@@ -23,7 +23,7 @@ namespace Missile
         // Update is called once per frame
         void Update()
         {
-
+            //If Enemy has been shot, don't let them move utnil the timer is finished.
             if (_isShot)
             {
                 _stuckTimer += Time.deltaTime;
@@ -43,6 +43,8 @@ namespace Missile
                 {
                     transform.Translate(new Vector3(0, -_speed, 0) * Time.deltaTime);
                 }
+
+                //If the Enemy is able to shoot, they do so immediatley, resetting the timer til they can shoot again.
                 _shotTimer += Time.deltaTime;
 
                 if (_shotTimer > _timeBetweenShots)
@@ -55,7 +57,7 @@ namespace Missile
                 }
             }
 
-            //Check top bounds
+            //Don't let the enemy move out of bounds.
             if (transform.position.y > 6.75)
             {
                 Vector3 holdAtTop = transform.position;
@@ -70,6 +72,7 @@ namespace Missile
             }
         }
 
+        //Set IsShot and instantiate an explosion.
         public void Shot()
         {
             _isShot = true;
