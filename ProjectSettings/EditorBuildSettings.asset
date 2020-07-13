@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Missile.unity
     guid: 9f8da3a9b1b32c046b038f36e992e3fd
+  - enabled: 1
+    path: Assets/Scenes/Windmill.unity
+    guid: 6267d1d933fc0f44a98b5131c71058b8
   m_configObjects: {}

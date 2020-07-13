@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
         _scenes.Add(new SceneHelper("Multiball", false));
         _scenes.Add(new SceneHelper("Invisiball", false));
         _scenes.Add(new SceneHelper("Missile", false));
+        _scenes.Add(new SceneHelper("Windmill", false));
     }
 
     public static float GetGameSpeed()
