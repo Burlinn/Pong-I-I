@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Windmill.unity
     guid: 6267d1d933fc0f44a98b5131c71058b8
+  - enabled: 1
+    path: Assets/Scenes/Portal.unity
+    guid: b4a6ada2b1e5bd14f97c499e200442b3
   m_configObjects: {}

@@ -659,8 +659,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459343063}
-  - component: {fileID: 459343065}
   - component: {fileID: 459343064}
+  - component: {fileID: 459343065}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Scene
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 459343062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f386fd177612064c9cc05be5a9e839d, type: 3}
+  m_Script: {fileID: 11500000, guid: 283ca7e1ca2a5f344a32412428697607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pScore: {fileID: 686544092}
@@ -1840,7 +1840,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1497390399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13170de1c2d7cde4f9875c7a0d45015b, type: 3}
+  m_Script: {fileID: 11500000, guid: 03f802b397ed4674b8ebf19c1ebb7225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 12
@@ -1945,7 +1945,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669903846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd4988ca25f7b504284a0b1ea09474f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 57f21f212d7af40448f28541d5a42dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 8
@@ -2052,10 +2052,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1776464642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f61eab5db076f8469ab14d00f3ec716, type: 3}
+  m_Script: {fileID: 11500000, guid: 4280a241e4354724aaa16a6bcba175e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constantBallSpeed: 25
+  _constantBallSpeed: 20
   _gameSpeed: 10
   _playerScoredLast: 1
   _roundHadWinner: 0
