@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Portal
+namespace Generic
 {
     public class EnemyManager : MonoBehaviour
     {

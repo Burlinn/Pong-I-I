@@ -1062,7 +1062,6 @@ GameObject:
   - component: {fileID: 716454242}
   - component: {fileID: 716454241}
   - component: {fileID: 716454240}
-  - component: {fileID: 716454245}
   - component: {fileID: 716454246}
   m_Layer: 0
   m_Name: Camera
@@ -1152,22 +1151,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &716454245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716454239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f386fd177612064c9cc05be5a9e839d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pScore: {fileID: 0}
-  eScore: {fileID: 0}
-  gameMessageText: {fileID: 0}
-  ball: {fileID: 0}
 --- !u!82 &716454246
 AudioSource:
   m_ObjectHideFlags: 0

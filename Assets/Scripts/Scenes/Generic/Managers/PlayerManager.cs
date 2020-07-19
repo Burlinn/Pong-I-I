@@ -1,25 +1,24 @@
 ﻿using UnityEngine;
 
-namespace Invisiball
+namespace Generic
 {
-    public class EnemyManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour
     {
 
-        public int _speed = 8;
-
-        public GameObject _ball;
+        public int _speed = 12;
 
         // Update is called once per frame
         void Update()
         {
-            //Make our enemy track the ball
-            if (_ball.transform.position.y > transform.position.y)
+            if (Input.GetButton("UP"))
             {
-                transform.Translate(new Vector3(0, _speed, 0) * Time.deltaTime);
+                Vector3 vec3 = new Vector3(0, _speed, 0);
+                transform.Translate(vec3 * Time.deltaTime);
             }
-            if (_ball.transform.position.y < transform.position.y)
+            if (Input.GetButton("DOWN"))
             {
-                transform.Translate(new Vector3(0, -_speed, 0) * Time.deltaTime);
+                Vector3 vec3 = new Vector3(0, -_speed, 0);
+                transform.Translate(vec3 * Time.deltaTime);
             }
 
             //Check top bounds

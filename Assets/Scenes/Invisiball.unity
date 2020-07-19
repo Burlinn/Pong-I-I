@@ -733,7 +733,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459343063}
-  - component: {fileID: 459343065}
   - component: {fileID: 459343064}
   m_Layer: 0
   m_Name: SceneManager
@@ -776,22 +775,6 @@ MonoBehaviour:
   _playerScoreText: {fileID: 686544092}
   _enemyScoreText: {fileID: 160893841}
   _gameMessageText: {fileID: 897270664}
---- !u!114 &459343065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459343062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f386fd177612064c9cc05be5a9e839d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pScore: {fileID: 686544092}
-  eScore: {fileID: 160893841}
-  gameMessageText: {fileID: 897270664}
-  ball: {fileID: 0}
 --- !u!1 &492949506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1060,6 @@ GameObject:
   - component: {fileID: 716454242}
   - component: {fileID: 716454241}
   - component: {fileID: 716454240}
-  - component: {fileID: 716454245}
   - component: {fileID: 716454246}
   m_Layer: 0
   m_Name: Camera
@@ -1167,22 +1149,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &716454245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716454239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f386fd177612064c9cc05be5a9e839d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pScore: {fileID: 0}
-  eScore: {fileID: 0}
-  gameMessageText: {fileID: 0}
-  ball: {fileID: 0}
 --- !u!82 &716454246
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2120,7 +2086,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1497390399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f77a60e803490e4a807ae6a5270000c, type: 3}
+  m_Script: {fileID: 11500000, guid: d01e92705e03a98429e5577c4c7e1e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 12
@@ -2299,7 +2265,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669903846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbae00481b95e1f45be7a5d2d910c0e5, type: 3}
+  m_Script: {fileID: 11500000, guid: c874fc2abccdf1e4f85747a1da3c755b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 8

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-namespace Portal { 
+namespace Generic { 
     public class BallManager : MonoBehaviour
     {
         //Speed of the ball
-        public float _constantBallSpeed = 20;
+        public float _constantBallSpeed = 25;
         //Used to manipulate delta time
         public float _gameSpeed = 10;
 
@@ -56,15 +55,9 @@ namespace Portal {
 
         }
 
-        private GameObject getBall()
-        {
-            return _ballInstance;
-        }
-
-
         void OnCollisionEnter(Collision collision)
         {
-            //Set the round winner
+			//Set the round winner
             if (collision.gameObject.name == "LeftWall")
             {
                 _playerScoredLast = false;
