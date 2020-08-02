@@ -135,9 +135,8 @@ namespace Missile
                 else
                 {
                     //If the game's not over, load a random unplayed scene.
-                    string scene = GameManager.GetNextScene();
-                    SceneManager.LoadScene(scene);
                     GameManager.SetGameStep(Enums.GameStep.RoundStarting);
+                    SceneManager.LoadScene(GameManager.GetSceneByIndex(GameManager.GetPlayerScore() + GameManager.GetEnemyScore()));
                 }
 
             }

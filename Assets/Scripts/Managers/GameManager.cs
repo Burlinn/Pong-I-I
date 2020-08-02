@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     private static Vector3[] _playerStartingVectors = new Vector3[4];
     private static Vector3[] _enemyStartingVectors = new Vector3[4];
     private static List<SceneHelper> _scenes;
+    private static List<SceneHelper> _scenePlayList;
     private static System.Random random = new System.Random();
 
     // Use this for initialization
@@ -114,6 +115,26 @@ public class GameManager : MonoBehaviour
         return _enemyStartingVectors;
     }
 
+    public static List<SceneHelper> GetScenePlayList()
+    {
+        return _scenePlayList;
+    }
+
+    public static void CreateRandomPlayList()
+    {
+        _scenePlayList = new List<SceneHelper>();
+        _scenePlayList.Add(new SceneHelper("Pong", true));
+        for (int i = 0; i < 18; i++)
+        {
+            _scenePlayList.Add(_scenes[Random.Range(0, _scenes.Count)]);
+        }
+    }
+
+    public static string GetSceneByIndex(int sceneIndex)
+    {
+        return _scenePlayList[sceneIndex].SceneName;
+    }
+
     private void LoadSceneList()
     {
         _scenes.Add(new SceneHelper("Pong", true));
@@ -122,6 +143,7 @@ public class GameManager : MonoBehaviour
         _scenes.Add(new SceneHelper("Missile", false));
         _scenes.Add(new SceneHelper("Windmill", false));
         _scenes.Add(new SceneHelper("Portal", false));
+        _scenes.Add(new SceneHelper("BreakoutBall", false));
     }
 
     public static float GetGameSpeed()

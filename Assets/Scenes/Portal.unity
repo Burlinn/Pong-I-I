@@ -956,6 +956,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5931631290574760679, guid: b78d8e05c4a9ffc4c86c11aaece98108,
         type: 3}
+    - target: {fileID: 1644040884240271278, guid: 9f348a74cd1818a46a81d7e090a78ce9,
+        type: 3}
+      propertyPath: _timeToTeleport
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f348a74cd1818a46a81d7e090a78ce9, type: 3}
 --- !u!1 &525877082 stripped
@@ -1082,6 +1087,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5931631290574760679, guid: 045ba13f754791848a643215719bce5b,
         type: 3}
+    - target: {fileID: 1644040884240271278, guid: 50c210c5cfa495540a5c6307fe2dc683,
+        type: 3}
+      propertyPath: _timeToTeleport
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50c210c5cfa495540a5c6307fe2dc683, type: 3}
 --- !u!1 &646901492 stripped
@@ -3159,6 +3169,11 @@ PrefabInstance:
       propertyPath: _pairedPortal
       value: 
       objectReference: {fileID: 646901492}
+    - target: {fileID: 1644040884240271278, guid: 50c210c5cfa495540a5c6307fe2dc683,
+        type: 3}
+      propertyPath: _timeToTeleport
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50c210c5cfa495540a5c6307fe2dc683, type: 3}
 --- !u!1001 &4927112733765019727
@@ -3233,6 +3248,11 @@ PrefabInstance:
       propertyPath: _pairedPortal
       value: 
       objectReference: {fileID: 525877082}
+    - target: {fileID: 1644040884240271278, guid: 9f348a74cd1818a46a81d7e090a78ce9,
+        type: 3}
+      propertyPath: _timeToTeleport
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f348a74cd1818a46a81d7e090a78ce9, type: 3}
 --- !u!1 &6231993746236373341 stripped

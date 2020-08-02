@@ -7,7 +7,7 @@ namespace Portal {
         public GameObject _pairedPortal;
         public GameObject _explosion;
         public float _timer;
-        public float _timeToTeleport = 2f;
+        public float _timeToTeleport = 1f;
 
         private bool _canTeleport = true;
 

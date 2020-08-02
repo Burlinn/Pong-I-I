@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
-namespace Windmill
+namespace BreakoutBall
 {
-    public class WindmillBallManager : MonoBehaviour
+    public class BreakoutBallManager : MonoBehaviour
     {
 
         public float _roundStartDelay = 0f;
@@ -15,21 +16,33 @@ namespace Windmill
         public Text _playerScoreText;
         public Text _enemyScoreText;
         public Text _gameMessageText;
+        public Text _playerBreakoutScoreText;
+        public Text _enemyBreakoutScoreText;
 
-        private static BallManager _ballManager;
+        private static Generic.BallManager _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
-        private static System.Random random = new System.Random();
+        private static bool _ballLastHitPlayer = false;
+
+        private int _playerBreakoutScore = 0;
+        private int _enemyBreakoutScore = 0;
+        private int _brickCount = 0;
+        private bool _gameStarted = false;
+        private bool _playersBall = false;
 
         // Use this for initialization
         public void Start()
         {
             _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Windmill.BallManager>();
+            _ballManager = _ball.GetComponent<Generic.BallManager>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
+            _ballLastHitPlayer = GameManager.GetPlayerScoredLast();
+            _brickCount = GameObject.FindGameObjectsWithTag("Brick").Length;
+            _playerBreakoutScoreText.text = _playerBreakoutScore.ToString();
+            _enemyBreakoutScoreText.text = _enemyBreakoutScore.ToString();
         }
 
         public void Update()
@@ -52,9 +65,62 @@ namespace Windmill
             }
         }
 
+        public bool GetBallLastHitPlayer()
+        {
+            return _ballLastHitPlayer;
+        }
+
+        public void SetBallLastHitPlayer(bool ballLastHitPlayer)
+        {
+            _ballLastHitPlayer = ballLastHitPlayer;
+        }
+
+        public int GetPlayerBreakoutScore()
+        {
+            return _playerBreakoutScore;
+        }
+
+        public void SetPlayerBreakoutScore(int playerBreakoutScore)
+        {
+            _playerBreakoutScore += playerBreakoutScore;
+            _playerBreakoutScoreText.text = _playerBreakoutScore.ToString();
+        }
+
+        public int GetEnemyBreakoutScore()
+        {
+            return _enemyBreakoutScore;
+        }
+
+        public void SetEnemyBreakoutScore(int enemyBreakoutScore)
+        {
+            _enemyBreakoutScore += enemyBreakoutScore;
+            _enemyBreakoutScoreText.text = _enemyBreakoutScore.ToString();
+        }
+
         public static GameObject GetBall()
         {
             return _ball;
+        }
+
+        public int GetBrickCount()
+        {
+            return _brickCount;
+        }
+
+        public void RemoveBrick()
+        {
+            _brickCount--;
+        }
+
+        public void SetBrickCountToZero()
+        {
+            _brickCount = 0;
+        }
+
+
+        public void SetPlayersBall(bool playersBall)
+        {
+            _playersBall = playersBall;
         }
 
         private void RoundStarting()
@@ -75,22 +141,24 @@ namespace Windmill
         {
             if (!_winnerSet)
             {
-                if (_ballManager._playerScoredLast && _ballManager._roundHadWinner)
+                if(_brickCount == 0)
                 {
-                    GameManager.SetPlayerScore(GameManager.GetPlayerScore() + 1);
-                    _playerScoreText.text = GameManager.GetPlayerScore().ToString();
-                    GameManager.SetPlayerScoredLast(true);
-
-
-                }
-                else if (_ballManager._roundHadWinner)
-                {
-                    GameManager.SetEnemyScore(GameManager.GetEnemyScore() + 1);
-                    _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
-                    GameManager.SetPlayerScoredLast(false);
-                }
-
-                _ballManager._roundHadWinner = false;
+                    if(_playerBreakoutScore > _enemyBreakoutScore)
+                    {
+                        GameManager.SetPlayerScore(GameManager.GetPlayerScore() + 1);
+                        _playerScoreText.text = GameManager.GetPlayerScore().ToString();
+                        GameManager.SetPlayerScoredLast(true);
+                    } else if(_enemyBreakoutScore > _playerBreakoutScore)
+                    {
+                        GameManager.SetEnemyScore(GameManager.GetEnemyScore() + 1);
+                        _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
+                        GameManager.SetPlayerScoredLast(false);
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene("BreakoutBall");
+                    }
+                } 
 
                 if (GameManager.GetEnemyScore() == GameManager.GetScoreToWin())
                 {
@@ -102,8 +170,10 @@ namespace Windmill
                 }
                 else
                 {
+                    //string scene = GameManager.GetNextScene();
                     GameManager.SetGameStep(Enums.GameStep.RoundStarting);
                     SceneManager.LoadScene(GameManager.GetSceneByIndex(GameManager.GetPlayerScore() + GameManager.GetEnemyScore()));
+                    //
                 }
 
             }
@@ -132,14 +202,21 @@ namespace Windmill
 
             Vector3 startPosition = _ball.GetComponent<Rigidbody>().position;
             Vector3 startingVector = new Vector3();
+            bool playersBall = false;
+            if(_gameStarted == true)
+            {
+                playersBall = _playersBall;
+            } else
+            {
+                playersBall = GameManager.GetPlayerScoredLast();
+                _gameStarted = true;
+            }
 
-            if (GameManager.GetPlayerScoredLast() == true)
+            if (playersBall)
             {
                 startingVector = GameManager.GetPlayerStartingVectors()[Random.Range(0, 4)];
                 startPosition.x = _ballSpawnFromPlayer;
-            }
-
-            if (GameManager.GetPlayerScoredLast() == false)
+            } else
             {
                 startingVector = GameManager.GetEnemyStartingVectors()[Random.Range(0, 4)];
                 startPosition.x = _ballSpawnFromEnemy;
@@ -150,6 +227,8 @@ namespace Windmill
 
             startPosition.y = 0;
             _ball.GetComponent<Rigidbody>().position = startPosition;
+
+            
 
 
         }

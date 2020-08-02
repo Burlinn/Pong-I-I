@@ -44,12 +44,10 @@ namespace Generic {
             //If the ball somehow ends up in a state where it's going up and down, nudge it in the right direction.
 		    if (GetComponent<Rigidbody>().velocity.x < 1 && GetComponent<Rigidbody>().velocity.x > 0 )
 		    {
-			    Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
                 GetComponent<Rigidbody>().velocity = new Vector3(2, -2, 0);
             }
             else if  (GetComponent<Rigidbody>().velocity.x > -1 && GetComponent<Rigidbody>().velocity.x <= 0 )
 		    {
-			    Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
                 GetComponent<Rigidbody>().velocity = new Vector3(-2, 2, 0);
             }
 

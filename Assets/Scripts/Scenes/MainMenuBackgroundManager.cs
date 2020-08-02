@@ -2,9 +2,9 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-namespace Windmill
+namespace MainMenu
 {
-    public class WindmillBallManager : MonoBehaviour
+    public class MainMenuBackgroundManager : MonoBehaviour
     {
 
         public float _roundStartDelay = 0f;
@@ -16,18 +16,21 @@ namespace Windmill
         public Text _enemyScoreText;
         public Text _gameMessageText;
 
-        private static BallManager _ballManager;
+        private static Generic.BallManager _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
         private static System.Random random = new System.Random();
+        private static int _drone1Score = 0;
+        private static int _drone2Score = 0;
+        private static bool _drone1ScoredLast = false;
+        private static bool _gameHasWinner = false;
 
         // Use this for initialization
         public void Start()
         {
-            _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Windmill.BallManager>();
+            _ballManager = _ball.GetComponent<Generic.BallManager>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
         }
@@ -44,7 +47,7 @@ namespace Windmill
             }
             if (GameManager.GetGameStep() == Enums.GameStep.RoundEnding)
             {
-                if (GameManager.GameHasWinner())
+                if (_gameHasWinner)
                 {
                     _winnerSet = true;
                 }
@@ -77,33 +80,27 @@ namespace Windmill
             {
                 if (_ballManager._playerScoredLast && _ballManager._roundHadWinner)
                 {
-                    GameManager.SetPlayerScore(GameManager.GetPlayerScore() + 1);
-                    _playerScoreText.text = GameManager.GetPlayerScore().ToString();
-                    GameManager.SetPlayerScoredLast(true);
+                    _drone1Score += 1;
+                    _playerScoreText.text = _drone1Score.ToString();
+                    _drone1ScoredLast = true;
 
 
                 }
                 else if (_ballManager._roundHadWinner)
                 {
-                    GameManager.SetEnemyScore(GameManager.GetEnemyScore() + 1);
-                    _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
-                    GameManager.SetPlayerScoredLast(false);
+                    _drone2Score += 1;
+                    _enemyScoreText.text = _drone2Score.ToString();
+                    _drone1ScoredLast = false;
                 }
 
                 _ballManager._roundHadWinner = false;
 
-                if (GameManager.GetEnemyScore() == GameManager.GetScoreToWin())
+                if (_drone2Score == GameManager.GetScoreToWin() || _drone1Score == GameManager.GetScoreToWin())
                 {
-                    _gameMessageText.text = "You Lose!";
-                }
-                else if (GameManager.GetPlayerScore() == GameManager.GetScoreToWin())
-                {
-                    _gameMessageText.text = "You Win!";
-                }
-                else
+                    _gameHasWinner = true;
+                } else
                 {
                     GameManager.SetGameStep(Enums.GameStep.RoundStarting);
-                    SceneManager.LoadScene(GameManager.GetSceneByIndex(GameManager.GetPlayerScore() + GameManager.GetEnemyScore()));
                 }
 
             }
@@ -114,7 +111,7 @@ namespace Windmill
                 if (_timer > _gameOverDelay)
                 {
                     GameManager.ResetScenes();
-                    SceneManager.LoadScene("Pong");
+                    SceneManager.LoadScene("MainMenu");
                 }
             }
 
@@ -133,13 +130,13 @@ namespace Windmill
             Vector3 startPosition = _ball.GetComponent<Rigidbody>().position;
             Vector3 startingVector = new Vector3();
 
-            if (GameManager.GetPlayerScoredLast() == true)
+            if (_drone1ScoredLast == true)
             {
                 startingVector = GameManager.GetPlayerStartingVectors()[Random.Range(0, 4)];
                 startPosition.x = _ballSpawnFromPlayer;
             }
 
-            if (GameManager.GetPlayerScoredLast() == false)
+            if (_drone1ScoredLast == false)
             {
                 startingVector = GameManager.GetEnemyStartingVectors()[Random.Range(0, 4)];
                 startPosition.x = _ballSpawnFromEnemy;
