@@ -31,8 +31,8 @@ namespace MainMenu
         {
             _ball = GameObject.FindGameObjectWithTag("Ball");
             _ballManager = _ball.GetComponent<Generic.BallManager>();
-            _playerScoreText.text = GameManager.GetPlayerScore().ToString();
-            _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
+            _playerScoreText.text = "0";
+            _enemyScoreText.text = "0";
         }
 
         public void Update()

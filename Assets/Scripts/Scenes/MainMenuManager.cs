@@ -15,6 +15,8 @@ namespace MainMenu
         {
             _playButton.onClick.AddListener(delegate { PlayGame(); });
             _createPlaylistButton.onClick.AddListener(delegate { CreatePlayList(); });
+            GameManager.SetEnemyScore(0);
+            GameManager.SetPlayerScore(0);
         }
 
         public void Update()

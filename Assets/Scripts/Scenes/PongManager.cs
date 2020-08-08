@@ -114,7 +114,7 @@ namespace Pong
                 if (_timer > _gameOverDelay)
                 {
                     GameManager.ResetScenes();
-                    SceneManager.LoadScene("Pong");
+                    SceneManager.LoadScene("MainMenu");
                 }
             }
 
