@@ -33,6 +33,7 @@ namespace Missile
             _ballManager = _ball.GetComponent<Missile.BallManager>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
+            _fireText.text = "Press SPACE to Fire";
         }
 
         public void Update()
@@ -48,10 +49,12 @@ namespace Missile
             {
                 _fireText.text = "Press SPACE to Fire";
             }
+            //If the player can't fire yet, but isn't stunned, display nothing
             else
             {
                 _fireText.text = string.Empty;
             }
+
             if (GameManager.GetGameStep() == Enums.GameStep.RoundStarting)
             {
                 RoundStarting();

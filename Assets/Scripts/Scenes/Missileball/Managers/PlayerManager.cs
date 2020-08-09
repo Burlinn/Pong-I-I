@@ -24,6 +24,9 @@ namespace Missile
         private void Start()
         {
             _scene = GameObject.Find("SceneManager").GetComponent<MissileBallManager>();
+            _isShot = false;
+            _scene.CanFire(true);
+            _scene.PlayerHit(false);
         }
 
         // Update is called once per frame
@@ -39,6 +42,7 @@ namespace Missile
             else
             {
                 _scene.CanFire(false);
+
             }
 
             //If play has been hit, count down until they can move again. Display hit message.
@@ -50,8 +54,11 @@ namespace Missile
                     _isShot = false;
                     _stuckTimer = 0;
                     _scene.PlayerHit(false);
+                    _scene.CanFire(true);
                 }
-                _scene.PlayerHit(true);
+                else { 
+                    _scene.PlayerHit(true);
+                }
             }
 
             //If we can shoot, allow player to move. Otherwise, player is stuck. 

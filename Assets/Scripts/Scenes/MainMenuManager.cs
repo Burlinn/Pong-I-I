@@ -32,7 +32,7 @@ namespace MainMenu
 
         private void CreatePlayList()
         {
-
+            SceneManager.LoadScene(Constants.CREATE_PLAYLIST);
         }
 
     }

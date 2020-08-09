@@ -123,10 +123,19 @@ public class GameManager : MonoBehaviour
     public static void CreateRandomPlayList()
     {
         _scenePlayList = new List<SceneHelper>();
-        _scenePlayList.Add(new SceneHelper("Pong", true));
+        _scenePlayList.Add(new SceneHelper(Constants.PONG, true));
         for (int i = 0; i < 18; i++)
         {
             _scenePlayList.Add(_scenes[Random.Range(0, _scenes.Count)]);
+        }
+    }
+
+    public static void CreatePlayListFromList(List<string> playList)
+    {
+        _scenePlayList = new List<SceneHelper>();
+        for (int i = 0; i < 18; i++)
+        {
+            _scenePlayList.Add(_scenes.Where(sceneHelper => sceneHelper.SceneName == playList[i]).First());
         }
     }
 
@@ -137,13 +146,13 @@ public class GameManager : MonoBehaviour
 
     private void LoadSceneList()
     {
-        _scenes.Add(new SceneHelper("Pong", true));
-        _scenes.Add(new SceneHelper("Multiball", false));
-        _scenes.Add(new SceneHelper("Invisiball", false));
-        _scenes.Add(new SceneHelper("Missile", false));
-        _scenes.Add(new SceneHelper("Windmill", false));
-        _scenes.Add(new SceneHelper("Portal", false));
-        _scenes.Add(new SceneHelper("BreakoutBall", false));
+        _scenes.Add(new SceneHelper(Constants.PONG, true));
+        _scenes.Add(new SceneHelper(Constants.MULTIBALL, false));
+        _scenes.Add(new SceneHelper(Constants.INVISIBALL, false));
+        _scenes.Add(new SceneHelper(Constants.MISSILE, false));
+        _scenes.Add(new SceneHelper(Constants.WINDMILL, false));
+        _scenes.Add(new SceneHelper(Constants.PORTAL, false));
+        _scenes.Add(new SceneHelper(Constants.BREAKOUTBALL, false));
     }
 
     public static float GetGameSpeed()
