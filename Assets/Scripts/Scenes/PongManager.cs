@@ -34,6 +34,10 @@ namespace Pong
 
         public void Update()
         {
+            if (Input.GetButton(Constants.MAIN_MENU))
+            {
+                SceneManager.LoadScene(Constants.MAIN_MENU);
+            }
             if (GameManager.GetGameStep() == Enums.GameStep.RoundStarting)
             {
                 RoundStarting();

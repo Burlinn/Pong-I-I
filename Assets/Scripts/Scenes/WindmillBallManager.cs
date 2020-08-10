@@ -20,11 +20,14 @@ namespace Windmill
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
-        private static System.Random random = new System.Random();
 
         // Use this for initialization
         public void Start()
         {
+            if (Input.GetButton(Constants.MAIN_MENU))
+            {
+                SceneManager.LoadScene(Constants.MAIN_MENU);
+            }
             _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
             _ballManager = _ball.GetComponent<Windmill.BallManager>();

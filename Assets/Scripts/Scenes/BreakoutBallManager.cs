@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 namespace BreakoutBall
 {
@@ -43,10 +42,15 @@ namespace BreakoutBall
             _brickCount = GameObject.FindGameObjectsWithTag("Brick").Length;
             _playerBreakoutScoreText.text = _playerBreakoutScore.ToString();
             _enemyBreakoutScoreText.text = _enemyBreakoutScore.ToString();
+            ResetBall();
         }
 
         public void Update()
         {
+            if (Input.GetButton(Constants.MAIN_MENU))
+            {
+                SceneManager.LoadScene(Constants.MAIN_MENU);
+            }
             if (GameManager.GetGameStep() == Enums.GameStep.RoundStarting)
             {
                 RoundStarting();
@@ -120,6 +124,7 @@ namespace BreakoutBall
 
         public void SetPlayersBall(bool playersBall)
         {
+            _ballLastHitPlayer = playersBall;
             _playersBall = playersBall;
         }
 
@@ -173,7 +178,6 @@ namespace BreakoutBall
                     //string scene = GameManager.GetNextScene();
                     GameManager.SetGameStep(Enums.GameStep.RoundStarting);
                     SceneManager.LoadScene(GameManager.GetSceneByIndex(GameManager.GetPlayerScore() + GameManager.GetEnemyScore()));
-                    //
                 }
 
             }
@@ -214,23 +218,25 @@ namespace BreakoutBall
 
             if (playersBall)
             {
-                startingVector = GameManager.GetPlayerStartingVectors()[Random.Range(0, 4)];
                 startPosition.x = _ballSpawnFromPlayer;
             } else
             {
-                startingVector = GameManager.GetEnemyStartingVectors()[Random.Range(0, 4)];
                 startPosition.x = _ballSpawnFromEnemy;
             }
 
+            startPosition.y = 0;
+            _ball.transform.position = startPosition;
+
+            //On Spawn, make the ball target a random brick
+            startingVector = GetRandomBrick().transform.position - startPosition;
 
             _ball.GetComponent<Rigidbody>().velocity = startingVector;
+        }
 
-            startPosition.y = 0;
-            _ball.GetComponent<Rigidbody>().position = startPosition;
-
-            
-
-
+        private GameObject GetRandomBrick()
+        {
+            GameObject[] bricks = GameObject.FindGameObjectsWithTag("Brick");
+            return bricks[Random.Range(0, bricks.Length - 1)];
         }
     }
 }
