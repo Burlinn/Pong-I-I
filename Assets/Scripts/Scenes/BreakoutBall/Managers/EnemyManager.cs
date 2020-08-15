@@ -9,7 +9,7 @@ namespace BreakoutBall
 
         public GameObject _ball;
 
-        private BreakoutBall.BreakoutBallManager _scene;
+        private global::BreakoutBall.BreakoutBallManager _scene;
 
         private void Start()
         {

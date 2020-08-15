@@ -2,23 +2,29 @@
 
 namespace Generic
 {
-    public class PlayerManager : MonoBehaviour
+    public class Enemy : MonoBehaviour
     {
 
-        public int _speed = 12;
+        public int _speed = 8;
+
+        public GameObject _ball;
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetButton("UP"))
+            Move();
+        }
+
+        public virtual void Move()
+        {
+            //Make our enemy track the ball
+            if (_ball.transform.position.y > transform.position.y)
             {
-                Vector3 vec3 = new Vector3(0, _speed, 0);
-                transform.Translate(vec3 * Time.deltaTime);
+                transform.Translate(new Vector3(0, _speed, 0) * Time.deltaTime);
             }
-            if (Input.GetButton("DOWN"))
+            if (_ball.transform.position.y < transform.position.y)
             {
-                Vector3 vec3 = new Vector3(0, -_speed, 0);
-                transform.Translate(vec3 * Time.deltaTime);
+                transform.Translate(new Vector3(0, -_speed, 0) * Time.deltaTime);
             }
 
             //Check top bounds

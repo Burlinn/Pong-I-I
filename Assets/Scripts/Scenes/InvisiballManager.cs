@@ -16,7 +16,7 @@ namespace Invisiball
         public Text _enemyScoreText;
         public Text _gameMessageText;
 
-        private static BallManager _ballManager;
+        private static BallInvisible _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
@@ -27,7 +27,7 @@ namespace Invisiball
         {
             _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Invisiball.BallManager>();
+            _ballManager = _ball.GetComponent<Invisiball.BallInvisible>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
         }

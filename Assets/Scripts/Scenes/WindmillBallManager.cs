@@ -16,7 +16,7 @@ namespace Windmill
         public Text _enemyScoreText;
         public Text _gameMessageText;
 
-        private static BallManager _ballManager;
+        private static BallWindmill _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
@@ -30,7 +30,7 @@ namespace Windmill
             }
             _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Windmill.BallManager>();
+            _ballManager = _ball.GetComponent<Windmill.BallWindmill>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
         }

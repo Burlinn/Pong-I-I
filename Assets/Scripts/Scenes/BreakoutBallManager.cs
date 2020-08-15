@@ -18,7 +18,7 @@ namespace BreakoutBall
         public Text _playerBreakoutScoreText;
         public Text _enemyBreakoutScoreText;
 
-        private static Generic.BallManager _ballManager;
+        private static Generic.Ball _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
@@ -35,7 +35,7 @@ namespace BreakoutBall
         {
             _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Generic.BallManager>();
+            _ballManager = _ball.GetComponent<Generic.Ball>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
             _ballLastHitPlayer = GameManager.GetPlayerScoredLast();
@@ -219,9 +219,11 @@ namespace BreakoutBall
             if (playersBall)
             {
                 startPosition.x = _ballSpawnFromPlayer;
+                _ballLastHitPlayer = true;
             } else
             {
                 startPosition.x = _ballSpawnFromEnemy;
+                _ballLastHitPlayer = false;
             }
 
             startPosition.y = 0;

@@ -62,11 +62,11 @@ namespace Missile
             {
                 if (_isPlayerMissile)
                 {
-                    collision.gameObject.GetComponent<BallManager>().IsShot(true);
+                    collision.gameObject.GetComponent<BallMissile>().IsShot(true);
                 }
                 else
                 {
-                    collision.gameObject.GetComponent<BallManager>().IsShot(false);
+                    collision.gameObject.GetComponent<BallMissile>().IsShot(false);
                 }
             }
 

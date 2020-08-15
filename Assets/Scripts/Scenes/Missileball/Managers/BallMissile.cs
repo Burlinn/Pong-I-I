@@ -3,31 +3,27 @@ using System.Collections;
 
 namespace Missile
 {
-    public class BallManager : MonoBehaviour
+    public class BallMissile : Generic.Ball
     {
         //Speed of the ball
-        public float _constantBallSpeed = 20;
-        //Used to manipulate delta time
-        public float _gameSpeed = 10;
+        public float _constantMissileBallSpeed = 20;
 
         public float _shotVelocity = 6;
 
-        //Two variables to hold our scores
-        public bool _playerScoredLast = true;
-        public bool _roundHadWinner = false;
-        private GameObject _ballInstance;
         private bool _shotByPlayer = false;
         private bool _shotByEnemy = false;
 
-        public void Start()
+
+        private new void Start()
         {
-            _ballInstance = this.gameObject;
+            BallRigidbody = this.GetComponent<Rigidbody>();
+            ConstantBallSpeed = _constantMissileBallSpeed;
         }
 
         // Update is called once per frame
-        void Update()
+        new void Update()
         {
-            Vector3 ballVelocity = GetComponent<Rigidbody>().velocity;
+            Vector3 ballVelocity = BallRigidbody.velocity;
 
             //If the ball has been hit by a missile, it shoots forward
             if (_shotByPlayer)
@@ -52,7 +48,7 @@ namespace Missile
             if (transform.position.y > 8.1 || transform.position.y < -8.1)
             {
                 _roundHadWinner = false;
-                _ballInstance.SetActive(false);
+                this.gameObject.SetActive(false);
             }
 
             //If the ball somehow ends up in a state where it's going up and down, nudge it in the right direction.
@@ -69,11 +65,6 @@ namespace Missile
 
         }
 
-        private GameObject getBall()
-        {
-            return _ballInstance;
-        }
-
         //Let the ball know who it was hit by so we know what direction to shoot it off in.
         public void IsShot(bool byPlayer)
         {
@@ -87,54 +78,6 @@ namespace Missile
             }
         }
 
-
-        void OnCollisionEnter(Collision collision)
-        {
-            //Set the round winner
-            if (collision.gameObject.name == "LeftWall")
-            {
-                _playerScoredLast = false;
-                _roundHadWinner = true;
-                _ballInstance.SetActive(false);
-            }
-            if (collision.gameObject.name == "RightWall")
-            {
-                _playerScoredLast = true;
-                _roundHadWinner = true;
-                _ballInstance.SetActive(false);
-            }
-
-            //Bounce in a direction depending on where it hits the player's paddle.
-            if (collision.gameObject.name == "Player")
-            {
-                _shotByEnemy = false;
-                if (transform.position.y <= collision.transform.position.y - .3)
-                {
-                    GetComponent<Rigidbody>().velocity = new Vector3(4, -3, 0);
-                }
-                if (transform.position.y >= collision.transform.position.y + .3)
-                {
-                    GetComponent<Rigidbody>().velocity = new Vector3(4, 3, 0);
-                }
-
-            }
-
-            //Bounce in a direction depending on where it hits the enemy's paddle.
-            if (collision.gameObject.name == "Enemy")
-            {
-                _shotByPlayer = false;
-                if (transform.position.y <= collision.transform.position.y - .3)
-                {
-                    GetComponent<Rigidbody>().velocity = new Vector3(-4, -3, 0);
-                }
-                if (transform.position.y >= collision.transform.position.y + .3)
-                {
-                    GetComponent<Rigidbody>().velocity = new Vector3(-4, 3, 0);
-                }
-
-            }
-
-        }
     }
 
 }

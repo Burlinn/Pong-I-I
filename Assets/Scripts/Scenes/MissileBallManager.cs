@@ -17,7 +17,7 @@ namespace Missile
         public Text _gameMessageText;
         public Text _fireText;
 
-        private static BallManager _ballManager;
+        private static BallMissile _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
@@ -34,7 +34,7 @@ namespace Missile
         {
             _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Missile.BallManager>();
+            _ballManager = _ball.GetComponent<BallMissile>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
             _fireText.text = "Press SPACE to Fire";

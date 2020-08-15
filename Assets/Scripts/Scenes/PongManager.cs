@@ -16,7 +16,7 @@ namespace Pong
         public Text _enemyScoreText;
         public Text _gameMessageText;
 
-        private static Generic.BallManager _ballManager;
+        private static Generic.Ball _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
@@ -27,7 +27,7 @@ namespace Pong
         {
             _gameMessageText.text = "";
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Generic.BallManager>();
+            _ballManager = _ball.GetComponent<Generic.Ball>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
         }

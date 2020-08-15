@@ -16,7 +16,7 @@ namespace MainMenu
         public Text _enemyScoreText;
         public Text _gameMessageText;
 
-        private static Generic.BallManager _ballManager;
+        private static Generic.Ball _ballManager;
         private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
@@ -30,7 +30,7 @@ namespace MainMenu
         public void Start()
         {
             _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Generic.BallManager>();
+            _ballManager = _ball.GetComponent<Generic.Ball>();
             _playerScoreText.text = "0";
             _enemyScoreText.text = "0";
         }

@@ -2820,5 +2820,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4662424664045227890, guid: 522b11b5750023b4b92447a189569d1c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 522b11b5750023b4b92447a189569d1c, type: 3}
+--- !u!1 &4662424664928075062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4662424664045227891, guid: 522b11b5750023b4b92447a189569d1c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4662424664928075061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4662424664928075063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662424664928075062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6eabb51aace8748a04ddb1303ce905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _constantBallSpeed: 25
+  _gameSpeed: 10
+  _playerScoredLast: 1
+  _roundHadWinner: 0
+  _constantMissileBallSpeed: 10

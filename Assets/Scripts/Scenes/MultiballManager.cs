@@ -21,7 +21,7 @@ namespace Multiball
         public float _multiballSpawnTimer;
         public GameObject _ballPrefab;
 
-        private static BallManager _ballManager;
+        private static BallMulti _ballManager;
         private static List<GameObject> _balls;
         private float _timer = 0;
         private bool _winnerSet = false;
