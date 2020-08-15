@@ -22,17 +22,30 @@ namespace Generic
         private bool _winnerSet = false;
         private static System.Random random = new System.Random();
 
+        public virtual GameObject SceneBall
+        {
+            get { return _ball; }
+            set { _ball = value; }
+        }
+
+        public virtual bool WinnerSet
+        {
+            get { return _winnerSet; }
+            set { _winnerSet = value; }
+        }
+
+
         // Use this for initialization
-        public void Start()
+        public virtual void Start()
         {
             _gameMessageText.text = "";
-            _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Generic.Ball>();
+            SceneBall = GameObject.FindGameObjectWithTag(Constants.BALL);
+            _ballManager = SceneBall.GetComponent<Generic.Ball>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (Input.GetButton(Constants.MAIN_MENU))
             {
@@ -50,15 +63,10 @@ namespace Generic
             {
                 if (GameManager.GameHasWinner())
                 {
-                    _winnerSet = true;
+                    WinnerSet = true;
                 }
                 RoundEnding();
             }
-        }
-
-        public virtual GameObject GetBall()
-        {
-            return _ball;
         }
 
         public virtual void RoundStarting()
@@ -77,9 +85,9 @@ namespace Generic
 
         public virtual void RoundEnding()
         {
-            if (!_winnerSet)
+            if (!WinnerSet)
             {
-                if (_ballManager._playerScoredLast && _ballManager._roundHadWinner)
+                if (GameManager.GetPlayerScoredLast() && GameManager.GetRoundHadWinner())
                 {
                     GameManager.SetPlayerScore(GameManager.GetPlayerScore() + 1);
                     _playerScoreText.text = GameManager.GetPlayerScore().ToString();
@@ -87,14 +95,14 @@ namespace Generic
 
 
                 }
-                else if (_ballManager._roundHadWinner)
+                else if (GameManager.GetRoundHadWinner())
                 {
                     GameManager.SetEnemyScore(GameManager.GetEnemyScore() + 1);
                     _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
                     GameManager.SetPlayerScoredLast(false);
                 }
 
-                _ballManager._roundHadWinner = false;
+                GameManager.SetRoundHadWinner(false);
 
                 if (GameManager.GetEnemyScore() == GameManager.GetScoreToWin())
                 {
@@ -126,15 +134,15 @@ namespace Generic
 
         public virtual bool BallInPlay()
         {
-            return _ball.activeSelf;
+            return SceneBall.activeSelf;
         }
 
         public virtual void ResetBall()
         {
 
-            _ball.SetActive(true);
+            SceneBall.SetActive(true);
 
-            Vector3 startPosition = _ball.GetComponent<Rigidbody>().position;
+            Vector3 startPosition = SceneBall.GetComponent<Rigidbody>().position;
             Vector3 startingVector = new Vector3();
 
             if (GameManager.GetPlayerScoredLast() == true)
@@ -150,12 +158,13 @@ namespace Generic
             }
 
 
-            _ball.GetComponent<Rigidbody>().velocity = startingVector;
+            SceneBall.GetComponent<Rigidbody>().velocity = startingVector;
 
             startPosition.y = 0;
-            _ball.GetComponent<Rigidbody>().position = startPosition;
+            SceneBall.GetComponent<Rigidbody>().position = startPosition;
 
 
         }
+
     }
 }

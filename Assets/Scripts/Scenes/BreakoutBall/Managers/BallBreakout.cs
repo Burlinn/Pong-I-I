@@ -8,7 +8,7 @@ namespace BreakoutBall
 
         private BreakoutBallManager _scene;
 
-        public new void Start()
+        public override void Start()
         {
             ConstantBallSpeed = _constantBreakoutBallSpeed;
             BallRigidbody = this.GetComponent<Rigidbody>();
@@ -16,7 +16,7 @@ namespace BreakoutBall
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
             if (_scene.GetBrickCount() == 0)
             {
@@ -33,31 +33,31 @@ namespace BreakoutBall
             }
         }
 
-        public new void OnCollisionEnter(Collision collision)
+        public override void OnCollisionEnter(Collision collision)
         {
             HandleWallCollision(collision);
             HandlePlayersCollision(collision);
         }
 
-        new void HandleWallCollision(Collision collision)
+        public override void HandleWallCollision(Collision collision)
         {
             //If the ball touches the wall, the ball respawns next to the opponent and it's their ball. 
-            if (collision.gameObject.name == "LeftWall")
+            if (collision.gameObject.name == Constants.LEFT_WALL)
             {
                 _scene.SetPlayersBall(false);
                 _scene.ResetBall();
             }
-            else if (collision.gameObject.name == "RightWall")
+            else if (collision.gameObject.name == Constants.RIGHT_WALL)
             {
                 _scene.SetPlayersBall(true);
                 _scene.ResetBall();
             }
         }
 
-        new void HandlePlayersCollision(Collision collision)
+        public override void HandlePlayersCollision(Collision collision)
         {
             //Bounce in a direction depending on where it hits the player's paddle.
-            if (collision.gameObject.name == "Player")
+            if (collision.gameObject.name == Constants.PLAYER)
             {
                 if (transform.position.y <= collision.transform.position.y - .3)
                 {
@@ -71,7 +71,7 @@ namespace BreakoutBall
             }
 
             //Bounce in a direction depending on where it hits the enemy's paddle.
-            if (collision.gameObject.name == "Enemy")
+            if (collision.gameObject.name == Constants.ENEMY)
             {
                 if (transform.position.y <= collision.transform.position.y - .3)
                 {

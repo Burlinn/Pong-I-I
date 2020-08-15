@@ -9,7 +9,7 @@ namespace BreakoutBall
 
         private void Start()
         {
-            _scene = GameObject.Find("SceneManager").GetComponent<BreakoutBallManager>();
+            _scene = GameObject.Find(Constants.SCENE_MANAGER).GetComponent<BreakoutBallManager>();
         }
 
         // Update is called once per frame

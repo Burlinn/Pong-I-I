@@ -13,7 +13,7 @@ namespace Multiball
 
         private void Start()
         {
-            _scene = GameObject.Find("SceneManager").GetComponent<MultiballManager>();
+            _scene = GameObject.Find(Constants.SCENE_MANAGER).GetComponent<MultiballManager>();
         }
 
         // Update is called once per frame

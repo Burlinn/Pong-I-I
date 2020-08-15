@@ -7,7 +7,7 @@ namespace Windmill {
         //Speed of the ball
         public float _constantWindmillBallSpeed = 20;
 
-        public new void Start()
+        public override void Start()
         {
             BallRigidbody = this.GetComponent<Rigidbody>();
             ConstantBallSpeed = _constantWindmillBallSpeed;

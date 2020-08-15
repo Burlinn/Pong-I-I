@@ -14,14 +14,15 @@ namespace Missile
         private bool _shotByEnemy = false;
 
 
-        private new void Start()
+        public override void Start()
         {
             BallRigidbody = this.GetComponent<Rigidbody>();
             ConstantBallSpeed = _constantMissileBallSpeed;
+            GameManager.SetRoundHadWinner(false);
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
             Vector3 ballVelocity = BallRigidbody.velocity;
 
@@ -47,7 +48,7 @@ namespace Missile
             //If we somehow make it past the cieling or floor, despawn the ball
             if (transform.position.y > 8.1 || transform.position.y < -8.1)
             {
-                _roundHadWinner = false;
+                GameManager.SetRoundHadWinner(false);
                 this.gameObject.SetActive(false);
             }
 
@@ -65,24 +66,24 @@ namespace Missile
 
         }
 
-        new void OnCollisionEnter(Collision collision)
+        public override void OnCollisionEnter(Collision collision)
         {
             //Set the round winner
-            if (collision.gameObject.name == "LeftWall")
+            if (collision.gameObject.name == Constants.LEFT_WALL)
             {
-                _playerScoredLast = false;
-                _roundHadWinner = true;
+                GameManager.SetPlayerScoredLast(false);
+                GameManager.SetRoundHadWinner(true);
                 this.gameObject.SetActive(false);
             }
-            if (collision.gameObject.name == "RightWall")
+            if (collision.gameObject.name == Constants.RIGHT_WALL)
             {
-                _playerScoredLast = true;
-                _roundHadWinner = true;
+                GameManager.SetPlayerScoredLast(true);
+                GameManager.SetRoundHadWinner(true);
                 this.gameObject.SetActive(false);
             }
 
             //Bounce in a direction depending on where it hits the player's paddle.
-            if (collision.gameObject.name == "Player")
+            if (collision.gameObject.name == Constants.PLAYER)
             {
                 _shotByEnemy = false;
                 if (transform.position.y <= collision.transform.position.y - .3)
@@ -97,7 +98,7 @@ namespace Missile
             }
 
             //Bounce in a direction depending on where it hits the enemy's paddle.
-            if (collision.gameObject.name == "Enemy")
+            if (collision.gameObject.name == Constants.ENEMY)
             {
                 _shotByPlayer = false;
                 if (transform.position.y <= collision.transform.position.y - .3)

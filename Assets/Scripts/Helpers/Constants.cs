@@ -10,4 +10,10 @@
     public const string CREATE_PLAYLIST = "CreatePlaylist";
 
     public const string SCENE_MANAGER = "SceneManager";
+
+    public const string LEFT_WALL = "LeftWall";
+    public const string RIGHT_WALL = "RightWall";
+    public const string PLAYER = "Player";
+    public const string ENEMY = "Enemy";
+    public const string BALL = "Ball";
 }

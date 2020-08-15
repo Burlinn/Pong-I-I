@@ -27,36 +27,24 @@ namespace Generic {
             set { _gameSpeed = value; }
         }
 
-        public virtual bool PlayerScoredLast
-        {
-            get { return _playerScoredLast; }
-            set { _playerScoredLast = value; }
-        }
-
-        public virtual bool RoundHadWinner
-        {
-            get { return _roundHadWinner; }
-            set { _roundHadWinner = value; }
-        }
-
         public virtual Rigidbody BallRigidbody
         {
             get { return _rigidBody; }
             set { _rigidBody = value; }
         }
 
-        public void Start()
+        public virtual void Start()
         {
             BallRigidbody = this.GetComponent<Rigidbody>();
         }
 
         // Update is called once per frame
-        public void Update()
+        public virtual void Update()
         {
             Move();
         }
 
-        public void OnCollisionEnter(Collision collision)
+        public virtual void OnCollisionEnter(Collision collision)
         {
             HandleWallCollision(collision);
             HandlePlayersCollision(collision);
@@ -78,7 +66,7 @@ namespace Generic {
             //If we somehow make it past the cieling or floor, despawn the ball
             if (transform.position.y > 8.1 || transform.position.y < -8.1)
             {
-                _roundHadWinner = false;
+                GameManager.SetRoundHadWinner(false);
                 this.gameObject.SetActive(false);
             }
 
@@ -96,16 +84,16 @@ namespace Generic {
         public virtual void HandleWallCollision(Collision collision)
         {
             //Set the round winner
-            if (collision.gameObject.name == "LeftWall")
+            if (collision.gameObject.name == Constants.LEFT_WALL)
             {
-                _playerScoredLast = false;
-                _roundHadWinner = true;
+                GameManager.SetPlayerScoredLast(false);
+                GameManager.SetRoundHadWinner(true);
                 this.gameObject.SetActive(false);
             }
-            if (collision.gameObject.name == "RightWall")
+            if (collision.gameObject.name == Constants.RIGHT_WALL)
             {
-                _playerScoredLast = true;
-                _roundHadWinner = true;
+                GameManager.SetPlayerScoredLast(true);
+                GameManager.SetRoundHadWinner(true);
                 this.gameObject.SetActive(false);
             }
         }
@@ -113,7 +101,7 @@ namespace Generic {
         public virtual void HandlePlayersCollision(Collision collision)
         {
             //Bounce in a direction depending on where it hits the player's paddle.
-            if (collision.gameObject.name == "Player")
+            if (collision.gameObject.name == Constants.PLAYER)
             {
                 if (transform.position.y <= collision.transform.position.y - .3)
                 {
@@ -127,7 +115,7 @@ namespace Generic {
             }
 
             //Bounce in a direction depending on where it hits the enemy's paddle.
-            if (collision.gameObject.name == "Enemy")
+            if (collision.gameObject.name == Constants.ENEMY)
             {
                 if (transform.position.y <= collision.transform.position.y - .3)
                 {

@@ -10,7 +10,7 @@ namespace Multiball
 
         private MultiballManager _scene;
 
-        private new void Start()
+        public override void Start()
         {
             BallRigidbody = this.GetComponent<Rigidbody>();
             ConstantBallSpeed = _constantMultipleBallSpeed;
@@ -18,21 +18,21 @@ namespace Multiball
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
             Move();
         }
 
-        new void OnCollisionEnter(Collision collision)
+        public override void OnCollisionEnter(Collision collision)
         {
 			//Set the round winner
-            if (collision.gameObject.name == "LeftWall")
+            if (collision.gameObject.name == Constants.LEFT_WALL)
             {
                 GameManager.SetPlayerScoredLast(false);
                 GameManager.SetRoundHadWinner(true);
                 this.gameObject.SetActive(false);
             }
-            if (collision.gameObject.name == "RightWall")
+            if (collision.gameObject.name == Constants.RIGHT_WALL)
             {
                 GameManager.SetPlayerScoredLast(true);
                 GameManager.SetRoundHadWinner(true);
@@ -40,7 +40,7 @@ namespace Multiball
             }
 
             //Bounce in a direction depending on where it hits the player's paddle.
-            if (collision.gameObject.name == "Player")
+            if (collision.gameObject.name == Constants.PLAYER)
             {
                 if (transform.position.y <= collision.transform.position.y - .3)
                 {
@@ -57,7 +57,7 @@ namespace Multiball
             } 
 			
 			//Bounce in a direction depending on where it hits the enemy's paddle.
-			else if (collision.gameObject.name == "Enemy")
+			else if (collision.gameObject.name == Constants.ENEMY)
             {
 				if (transform.position.y <= collision.transform.position.y - .3)
                 {

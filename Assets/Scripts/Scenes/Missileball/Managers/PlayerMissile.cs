@@ -22,7 +22,7 @@ namespace Missile
 
         private void Start()
         {
-            _scene = GameObject.Find("SceneManager").GetComponent<MissileBallManager>();
+            _scene = GameObject.Find(Constants.SCENE_MANAGER).GetComponent<MissileBallManager>();
             _isShot = false;
             _scene.CanFire(true);
             _scene.PlayerHit(false);

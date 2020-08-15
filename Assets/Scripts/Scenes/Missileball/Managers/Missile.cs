@@ -60,7 +60,7 @@ namespace Missile
             Instantiate(_explosion, this.transform.position, Quaternion.identity);
 
             //If we hit a ball, then the ball should shoot off in the direction it was hit into.
-            if (collision.gameObject.name == "Ball")
+            if (collision.gameObject.name == Constants.BALL)
             {
                 if (_isPlayerMissile)
                 {
@@ -73,12 +73,12 @@ namespace Missile
             }
 
             //If we hit a player or enemy, they're stunned for some amount of time.
-            if (collision.gameObject.name == "Player")
+            if (collision.gameObject.name == Constants.PLAYER)
             {
                 collision.gameObject.GetComponent<PlayerMissile>().Shot();
             }
 
-            if (collision.gameObject.name == "Enemy")
+            if (collision.gameObject.name == Constants.ENEMY)
             {
                 collision.gameObject.GetComponent<EnemyMissile>().Shot();
             }

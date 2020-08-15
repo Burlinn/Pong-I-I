@@ -31,7 +31,7 @@ namespace Portal {
         void OnCollisionEnter(Collision collision)
         {
 			//If the ball touches the portal, teleport the ball to the paired portal and create an explosion at both points.
-            if (collision.gameObject.name == "Ball" && _canTeleport)
+            if (collision.gameObject.name == Constants.BALL && _canTeleport)
             {
                 collision.gameObject.transform.position = _pairedPortal.transform.position;
                 Instantiate(_explosion, this.transform.position, Quaternion.identity);

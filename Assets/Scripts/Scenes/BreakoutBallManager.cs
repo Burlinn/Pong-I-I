@@ -4,22 +4,13 @@ using UnityEngine.SceneManagement;
 
 namespace BreakoutBall
 {
-    public class BreakoutBallManager : MonoBehaviour
+    public class BreakoutBallManager : Generic.PongManager
     {
 
-        public float _roundStartDelay = 0f;
-        public float _gameOverDelay = 3f;
-        public float _roundOverDelay = 0f;
-        public int _ballSpawnFromPlayer = -10;
-        public int _ballSpawnFromEnemy = 10;
-        public Text _playerScoreText;
-        public Text _enemyScoreText;
-        public Text _gameMessageText;
         public Text _playerBreakoutScoreText;
         public Text _enemyBreakoutScoreText;
 
         private static Generic.Ball _ballManager;
-        private static GameObject _ball;
         private float _timer = 0;
         private bool _winnerSet = false;
         private static bool _ballLastHitPlayer = false;
@@ -34,8 +25,8 @@ namespace BreakoutBall
         public void Start()
         {
             _gameMessageText.text = "";
-            _ball = GameObject.FindGameObjectWithTag("Ball");
-            _ballManager = _ball.GetComponent<Generic.Ball>();
+            SceneBall = GameObject.FindGameObjectWithTag(Constants.BALL);
+            _ballManager = SceneBall.GetComponent<Generic.Ball>();
             _playerScoreText.text = GameManager.GetPlayerScore().ToString();
             _enemyScoreText.text = GameManager.GetEnemyScore().ToString();
             _ballLastHitPlayer = GameManager.GetPlayerScoredLast();
@@ -101,11 +92,6 @@ namespace BreakoutBall
             _enemyBreakoutScoreText.text = _enemyBreakoutScore.ToString();
         }
 
-        public static GameObject GetBall()
-        {
-            return _ball;
-        }
-
         public int GetBrickCount()
         {
             return _brickCount;
@@ -128,21 +114,7 @@ namespace BreakoutBall
             _playersBall = playersBall;
         }
 
-        private void RoundStarting()
-        {
-            ResetBall();
-            GameManager.SetGameStep(Enums.GameStep.RoundPlaying);
-        }
-
-        private void RoundPlaying()
-        {
-            if (!BallInPlay())
-            {
-                GameManager.SetGameStep(Enums.GameStep.RoundEnding);
-            }
-        }
-
-        private void RoundEnding()
+        public override void RoundEnding()
         {
             if (!_winnerSet)
             {
@@ -194,17 +166,12 @@ namespace BreakoutBall
 
         }
 
-        private bool BallInPlay()
-        {
-            return _ball.activeSelf;
-        }
-
-        public void ResetBall()
+        public override void ResetBall()
         {
 
-            _ball.SetActive(true);
+            SceneBall.SetActive(true);
 
-            Vector3 startPosition = _ball.GetComponent<Rigidbody>().position;
+            Vector3 startPosition = SceneBall.GetComponent<Rigidbody>().position;
             Vector3 startingVector = new Vector3();
             bool playersBall = false;
             if(_gameStarted == true)
@@ -225,12 +192,12 @@ namespace BreakoutBall
             }
 
             startPosition.y = 0;
-            _ball.transform.position = startPosition;
+            SceneBall.transform.position = startPosition;
 
             //On Spawn, make the ball target a random brick
             startingVector = GetRandomBrick().transform.position - startPosition;
 
-            _ball.GetComponent<Rigidbody>().velocity = startingVector;
+            SceneBall.GetComponent<Rigidbody>().velocity = startingVector;
         }
 
         private GameObject GetRandomBrick()

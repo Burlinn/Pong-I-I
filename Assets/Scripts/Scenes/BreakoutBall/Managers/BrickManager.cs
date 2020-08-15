@@ -17,7 +17,7 @@ namespace BreakoutBall
 
         private void Start()
         {
-            _scene = GameObject.Find("SceneManager").GetComponent<BreakoutBallManager>();
+            _scene = GameObject.Find(Constants.SCENE_MANAGER).GetComponent<BreakoutBallManager>();
             if (_value == 1)
             {
                 this.GetComponent<Renderer>().material = _normalMaterial;
@@ -38,7 +38,7 @@ namespace BreakoutBall
             Instantiate(_explosion, this.transform.position, Quaternion.identity);
 
             ////If we hit a ball, then the ball should shoot off in the direction it was hit into.
-            if (collision.gameObject.name == "Ball")
+            if (collision.gameObject.name == Constants.BALL)
             {
                 if(_value == 2 && !_isCracked)
                 {

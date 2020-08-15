@@ -10,15 +10,16 @@ namespace Invisiball {
         private MeshRenderer _meshRenderer;
 
 
-        new void Start()
+        public override void Start()
         {
             BallRigidbody = this.GetComponent<Rigidbody>();
             _renderer = this.gameObject.GetComponent<Renderer>();
             _meshRenderer = this.gameObject.GetComponent<MeshRenderer>();
+            GameManager.SetRoundHadWinner(false);
         }
 
         // Update is called once per frame
-        new void Update()
+        public override void Update()
         {
             Move();
             SetVisibility();

@@ -28,7 +28,7 @@ namespace BreakoutBall
             Instantiate(_explosion, this.transform.position, Quaternion.identity);
 
             //If the ball hits the wall 3 times, the wall goes away.
-            if (collision.gameObject.name == "Ball")
+            if (collision.gameObject.name == Constants.BALL)
             {
                 if(_numTimesHit == 0)
                 {
