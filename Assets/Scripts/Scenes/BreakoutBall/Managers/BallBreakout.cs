@@ -53,5 +53,36 @@ namespace BreakoutBall
                 _scene.ResetBall();
             }
         }
+
+        new void HandlePlayersCollision(Collision collision)
+        {
+            //Bounce in a direction depending on where it hits the player's paddle.
+            if (collision.gameObject.name == "Player")
+            {
+                if (transform.position.y <= collision.transform.position.y - .3)
+                {
+                    BallRigidbody.velocity = new Vector3(4, -3, 0);
+                }
+                if (transform.position.y >= collision.transform.position.y + .3)
+                {
+                    BallRigidbody.velocity = new Vector3(4, 3, 0);
+                }
+                _scene.SetPlayersBall(true);
+            }
+
+            //Bounce in a direction depending on where it hits the enemy's paddle.
+            if (collision.gameObject.name == "Enemy")
+            {
+                if (transform.position.y <= collision.transform.position.y - .3)
+                {
+                    BallRigidbody.velocity = new Vector3(-4, -3, 0);
+                }
+                if (transform.position.y >= collision.transform.position.y + .3)
+                {
+                    BallRigidbody.velocity = new Vector3(-4, 3, 0);
+                }
+                _scene.SetPlayersBall(false);
+            }
+        }
     }
 }

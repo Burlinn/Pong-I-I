@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7653243246876359520}
   - component: {fileID: 7793776400289815271}
   - component: {fileID: 191410388422205045}
-  - component: {fileID: 8963153151318466187}
+  - component: {fileID: -8467782700978194065}
   m_Layer: 0
   m_Name: White_Explosion
   m_TagString: Untagged
@@ -4753,7 +4753,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &8963153151318466187
+--- !u!114 &-8467782700978194065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4762,7 +4762,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5931631290574760679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413e64a3b4213124a8f1acd21c3904cc, type: 3}
+  m_Script: {fileID: 11500000, guid: a1fd3ff2c29761945959b6e8549dcf07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _timer: 0

@@ -3020,6 +3020,7 @@ MonoBehaviour:
   _gameSpeed: 10
   _playerScoredLast: 1
   _roundHadWinner: 0
+  _constantBreakoutBallSpeed: 20
 --- !u!54 &1776464644
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3480,16 +3481,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913419980433518983, guid: d3f3ec97c05bb6f4c883b52ffd0e3e26,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100.00012
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913419980433518983, guid: d3f3ec97c05bb6f4c883b52ffd0e3e26,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 100.00012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3f3ec97c05bb6f4c883b52ffd0e3e26, type: 3}

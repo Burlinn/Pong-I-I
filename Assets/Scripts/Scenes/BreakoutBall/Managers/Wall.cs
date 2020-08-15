@@ -2,7 +2,7 @@
 
 namespace BreakoutBall
 {
-    public class WallManager : MonoBehaviour
+    public class Wall : MonoBehaviour
     {
         public Material _hitOnceMaterial;
         public Material _hitTwiceMaterial;
@@ -10,10 +10,11 @@ namespace BreakoutBall
         public GameObject _explosion;
 
         private int _numTimesHit = 0;
+        private Renderer _renderer;
 
         private void Start()
         {
-
+            _renderer = this.GetComponent<Renderer>();
         }
 
         void Update()
@@ -31,15 +32,15 @@ namespace BreakoutBall
             {
                 if(_numTimesHit == 0)
                 {
-                    this.GetComponent<Renderer>().material = _hitOnceMaterial;
+                    _renderer.material = _hitOnceMaterial;
                     _numTimesHit++;
                 } else if(_numTimesHit == 1) {
-                    this.GetComponent<Renderer>().material = _hitTwiceMaterial;
+                    _renderer.material = _hitTwiceMaterial;
                     _numTimesHit++;
                 }
                 else if (_numTimesHit == 2)
                 {
-                    this.GetComponent<Renderer>().material = _hitThriceMaterial;
+                    _renderer.material = _hitThriceMaterial;
                     _numTimesHit++;
                 }
                 else

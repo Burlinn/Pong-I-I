@@ -2,7 +2,7 @@
 
 namespace Missile
 {
-    public class MissileManager : MonoBehaviour
+    public class Missile : MonoBehaviour
     {
 
         //Speed of the missile
@@ -15,12 +15,14 @@ namespace Missile
 
         private bool _isPlayerMissile;
         private ParticleSystem _particleSystem;
+        private Rigidbody _rigidbody;
 
         private void Start()
         {
             //Create our smoke trail
             _particleSystem = this.gameObject.GetComponent<ParticleSystem>();
             _particleSystem.Play();
+            _rigidbody = this.gameObject.GetComponent<Rigidbody>();
         }
 
         // Update is called once per frame
@@ -41,13 +43,13 @@ namespace Missile
                     _isPlayerMissile = false;
                 }
                 //Begin moving the missile in a straight line.
-                this.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(startingVectorX, 0, 0);
+                _rigidbody.velocity = new Vector3(startingVectorX, 0, 0);
                 _startingVectorSet = true;
             }
 
-            Vector3 ballVelocity = GetComponent<Rigidbody>().velocity;
+            Vector3 ballVelocity = _rigidbody.velocity;
             Vector3 ballSpeed = ballVelocity.normalized * _constantMissileSpeed;
-            GetComponent<Rigidbody>().velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
+            _rigidbody.velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
 
         }
 
@@ -73,12 +75,12 @@ namespace Missile
             //If we hit a player or enemy, they're stunned for some amount of time.
             if (collision.gameObject.name == "Player")
             {
-                collision.gameObject.GetComponent<PlayerManager>().Shot();
+                collision.gameObject.GetComponent<PlayerMissile>().Shot();
             }
 
             if (collision.gameObject.name == "Enemy")
             {
-                collision.gameObject.GetComponent<EnemyManager>().Shot();
+                collision.gameObject.GetComponent<EnemyMissile>().Shot();
             }
 
             Destroy(this.gameObject);

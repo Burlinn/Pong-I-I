@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-namespace Pong
+namespace Generic
 {
     public class PongManager : MonoBehaviour
     {
@@ -56,18 +56,18 @@ namespace Pong
             }
         }
 
-        public static GameObject GetBall()
+        public virtual GameObject GetBall()
         {
             return _ball;
         }
 
-        private void RoundStarting()
+        public virtual void RoundStarting()
         {
             ResetBall();
             GameManager.SetGameStep(Enums.GameStep.RoundPlaying);
         }
 
-        private void RoundPlaying()
+        public virtual void RoundPlaying()
         {
             if (!BallInPlay())
             {
@@ -75,7 +75,7 @@ namespace Pong
             }
         }
 
-        private void RoundEnding()
+        public virtual void RoundEnding()
         {
             if (!_winnerSet)
             {
@@ -124,12 +124,12 @@ namespace Pong
 
         }
 
-        private bool BallInPlay()
+        public virtual bool BallInPlay()
         {
             return _ball.activeSelf;
         }
 
-        public void ResetBall()
+        public virtual void ResetBall()
         {
 
             _ball.SetActive(true);

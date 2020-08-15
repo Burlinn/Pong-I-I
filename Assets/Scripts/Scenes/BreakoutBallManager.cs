@@ -219,11 +219,9 @@ namespace BreakoutBall
             if (playersBall)
             {
                 startPosition.x = _ballSpawnFromPlayer;
-                _ballLastHitPlayer = true;
             } else
             {
                 startPosition.x = _ballSpawnFromEnemy;
-                _ballLastHitPlayer = false;
             }
 
             startPosition.y = 0;

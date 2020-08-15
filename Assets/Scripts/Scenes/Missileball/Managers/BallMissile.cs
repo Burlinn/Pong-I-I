@@ -35,13 +35,13 @@ namespace Missile
                 ballVelocity = new Vector3(ballVelocity.x - _shotVelocity, ballVelocity.y, ballVelocity.z);
             }
             Vector3 ballSpeed = ballVelocity.normalized * _constantBallSpeed;
-            GetComponent<Rigidbody>().velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
+            BallRigidbody.velocity = Vector3.Lerp(ballVelocity, ballSpeed, Time.deltaTime * _gameSpeed);
 
             //If we hit the top or the bottom, bounce off of them. 
             if (transform.position.y > 8 || transform.position.y < -8)
             {
-                Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
-                GetComponent<Rigidbody>().velocity.Set(currentVelocity.x, -currentVelocity.y, currentVelocity.z);
+                Vector3 currentVelocity = BallRigidbody.velocity;
+                BallRigidbody.velocity.Set(currentVelocity.x, -currentVelocity.y, currentVelocity.z);
             }
 
             //If we somehow make it past the cieling or floor, despawn the ball
@@ -52,15 +52,63 @@ namespace Missile
             }
 
             //If the ball somehow ends up in a state where it's going up and down, nudge it in the right direction.
-            if (GetComponent<Rigidbody>().velocity.x < 1 && GetComponent<Rigidbody>().velocity.x > 0)
+            if (BallRigidbody.velocity.x < 1 && BallRigidbody.velocity.x > 0)
             {
-                Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
-                GetComponent<Rigidbody>().velocity = new Vector3(2, -2, 0);
+                Vector3 currentVelocity = BallRigidbody.velocity;
+                BallRigidbody.velocity = new Vector3(2, -2, 0);
             }
-            else if (GetComponent<Rigidbody>().velocity.x > -1 && GetComponent<Rigidbody>().velocity.x <= 0)
+            else if (BallRigidbody.velocity.x > -1 && BallRigidbody.velocity.x <= 0)
             {
-                Vector3 currentVelocity = GetComponent<Rigidbody>().velocity;
-                GetComponent<Rigidbody>().velocity = new Vector3(-2, 2, 0);
+                Vector3 currentVelocity = BallRigidbody.velocity;
+                BallRigidbody.velocity = new Vector3(-2, 2, 0);
+            }
+
+        }
+
+        new void OnCollisionEnter(Collision collision)
+        {
+            //Set the round winner
+            if (collision.gameObject.name == "LeftWall")
+            {
+                _playerScoredLast = false;
+                _roundHadWinner = true;
+                this.gameObject.SetActive(false);
+            }
+            if (collision.gameObject.name == "RightWall")
+            {
+                _playerScoredLast = true;
+                _roundHadWinner = true;
+                this.gameObject.SetActive(false);
+            }
+
+            //Bounce in a direction depending on where it hits the player's paddle.
+            if (collision.gameObject.name == "Player")
+            {
+                _shotByEnemy = false;
+                if (transform.position.y <= collision.transform.position.y - .3)
+                {
+                    BallRigidbody.velocity = new Vector3(4, -3, 0);
+                }
+                if (transform.position.y >= collision.transform.position.y + .3)
+                {
+                    BallRigidbody.velocity = new Vector3(4, 3, 0);
+                }
+
+            }
+
+            //Bounce in a direction depending on where it hits the enemy's paddle.
+            if (collision.gameObject.name == "Enemy")
+            {
+                _shotByPlayer = false;
+                if (transform.position.y <= collision.transform.position.y - .3)
+                {
+                    BallRigidbody.velocity = new Vector3(-4, -3, 0);
+                }
+                if (transform.position.y >= collision.transform.position.y + .3)
+                {
+                    BallRigidbody.velocity = new Vector3(-4, 3, 0);
+                }
+
             }
 
         }

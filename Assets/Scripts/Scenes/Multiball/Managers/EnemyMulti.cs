@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace Multiball
 {
-    public class EnemyManager : MonoBehaviour
+    public class EnemyMulti : Generic.Enemy
     {
 
-        public int _speed = 8;
         public List<GameObject> _balls;
         
         private MultiballManager _scene;
@@ -32,19 +31,7 @@ namespace Multiball
                 transform.Translate(new Vector3(0, -_speed, 0) * Time.deltaTime);
             }
 
-            //Check top bounds
-            if (transform.position.y > 6.75)
-            {
-                Vector3 holdAtTop = transform.position;
-                holdAtTop.y = 6.75f;
-                transform.position = holdAtTop;
-            }
-            if (transform.position.y < -6.75)
-            {
-                Vector3 holdAtBottom = transform.position;
-                holdAtBottom.y = -6.75f;
-                transform.position = holdAtBottom;
-            }
+            CheckBounds();
         }
 
         //Find the ball closest to the Enemy

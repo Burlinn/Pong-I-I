@@ -1806,7 +1806,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1497390399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03f802b397ed4674b8ebf19c1ebb7225, type: 3}
+  m_Script: {fileID: 11500000, guid: d01e92705e03a98429e5577c4c7e1e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 12
@@ -1911,7 +1911,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669903846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f21f212d7af40448f28541d5a42dd8, type: 3}
+  m_Script: {fileID: 11500000, guid: c874fc2abccdf1e4f85747a1da3c755b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 8
@@ -2025,6 +2025,7 @@ MonoBehaviour:
   _gameSpeed: 10
   _playerScoredLast: 1
   _roundHadWinner: 0
+  _constantWindmillBallSpeed: 20
 --- !u!54 &1776464644
 Rigidbody:
   m_ObjectHideFlags: 0
