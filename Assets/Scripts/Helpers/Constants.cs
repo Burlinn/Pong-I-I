@@ -8,6 +8,7 @@
     public const string BREAKOUTBALL = "BreakoutBall";
     public const string MAIN_MENU = "MainMenu";
     public const string CREATE_PLAYLIST = "CreatePlaylist";
+    public const string OPTIONS_MENU = "OptionsMenu";
 
     public const string SCENE_MANAGER = "SceneManager";
 

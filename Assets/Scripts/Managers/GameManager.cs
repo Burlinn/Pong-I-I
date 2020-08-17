@@ -26,18 +26,22 @@ public class GameManager : MonoBehaviour
     private static Enums.GameStep _gameStep;
     private static Vector3[] _playerStartingVectors = new Vector3[4];
     private static Vector3[] _enemyStartingVectors = new Vector3[4];
-    private static List<SceneHelper> _scenes;
-    private static List<SceneHelper> _scenePlayList;
+    private static List<string> _scenes;
+    private static List<string> _scenePlayList;
     private static System.Random random = new System.Random();
+    private static List<string> _disabledScenesList;
 
     // Use this for initialization
     public void Start()
     {
-        _scenes = new List<SceneHelper>();
+        _scenes = new List<string>();
         LoadStartingVectors();
         LoadSceneList();
         _gameStep = Enums.GameStep.RoundStarting;
         DontDestroyOnLoad(this.gameObject);
+        if(_disabledScenesList == null) { 
+            _disabledScenesList = new List<string>();
+        }
     }
 
 
@@ -61,26 +65,14 @@ public class GameManager : MonoBehaviour
         _enemyScore = enemyScore;
     }
 
-    public static string GetNextScene()
+    public static string GetNextScene(int sceneNumber)
     {
-        List<SceneHelper> unplayedScenes = _scenes.Where(x => x.ScenePlayed == false).ToList();
-        int index = random.Next(unplayedScenes.Count);
-        string nextScene = unplayedScenes[index].SceneName;
-        _scenes.Where(x => x.SceneName.Equals(nextScene)).First().ScenePlayed = true;
-        return unplayedScenes[index].SceneName;
+        return _scenePlayList[sceneNumber];
     }
 
-    public static List<SceneHelper> GetScenes()
+    public static List<string> GetScenes()
     {
         return _scenes;
-    }
-
-    public static void ResetScenes()
-    {
-        foreach(SceneHelper scene in _scenes)
-        {
-            scene.ScenePlayed = false;
-        }
     }
 
     public static Enums.GameStep GetGameStep()
@@ -91,6 +83,16 @@ public class GameManager : MonoBehaviour
     public static void SetGameStep(Enums.GameStep gameStep)
     {
         _gameStep = gameStep;
+    }
+
+    public static void DisableScene(string sceneName)
+    {
+        _disabledScenesList.Add(sceneName);
+    }
+
+    public static void EnableScene(string sceneName)
+    {
+        _disabledScenesList.Remove(sceneName);
     }
 
     private void LoadStartingVectors()
@@ -115,44 +117,63 @@ public class GameManager : MonoBehaviour
         return _enemyStartingVectors;
     }
 
-    public static List<SceneHelper> GetScenePlayList()
+    public static List<string> GetScenePlayList()
     {
         return _scenePlayList;
     }
 
     public static void CreateRandomPlayList()
     {
-        _scenePlayList = new List<SceneHelper>();
-        _scenePlayList.Add(new SceneHelper(Constants.PONG, true));
-        for (int i = 0; i < 18; i++)
+        List<string> activeScenes = new List<string>();
+        _scenePlayList = new List<string>();
+        foreach (string scene in _scenes)
         {
-            _scenePlayList.Add(_scenes[Random.Range(0, _scenes.Count)]);
+            if (!_disabledScenesList.Contains(scene))
+            {
+                activeScenes.Add(scene);
+            }
+        }
+        //If Pong isn't disabled, always start with Pong
+        if (_disabledScenesList.Contains(Constants.PONG))
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                _scenePlayList.Add(activeScenes[Random.Range(0, activeScenes.Count)]);
+            }
+        }
+        else { 
+            _scenePlayList.Add(Constants.PONG);
+            for (int i = 0; i < 19; i++)
+            {
+                _scenePlayList.Add(_scenes[Random.Range(0, _scenes.Count)]);
+            }
         }
     }
 
     public static void CreatePlayListFromList(List<string> playList)
     {
-        _scenePlayList = new List<SceneHelper>();
-        for (int i = 0; i < 18; i++)
-        {
-            _scenePlayList.Add(_scenes.Where(sceneHelper => sceneHelper.SceneName == playList[i]).First());
-        }
+        _scenePlayList = playList;
     }
 
     public static string GetSceneByIndex(int sceneIndex)
     {
-        return _scenePlayList[sceneIndex].SceneName;
+        return _scenePlayList[sceneIndex];
     }
 
     private void LoadSceneList()
     {
-        _scenes.Add(new SceneHelper(Constants.PONG, true));
-        _scenes.Add(new SceneHelper(Constants.MULTIBALL, false));
-        _scenes.Add(new SceneHelper(Constants.INVISIBALL, false));
-        _scenes.Add(new SceneHelper(Constants.MISSILE, false));
-        _scenes.Add(new SceneHelper(Constants.WINDMILL, false));
-        _scenes.Add(new SceneHelper(Constants.PORTAL, false));
-        _scenes.Add(new SceneHelper(Constants.BREAKOUTBALL, false));
+        _scenes.Add(Constants.PONG);
+        _scenes.Add(Constants.MULTIBALL);
+        _scenes.Add(Constants.INVISIBALL);
+        _scenes.Add(Constants.MISSILE);
+        _scenes.Add(Constants.WINDMILL);
+        _scenes.Add(Constants.PORTAL);
+        _scenes.Add(Constants.BREAKOUTBALL);
+    }
+
+    public static void ResetScenes()
+    {
+        _scenePlayList = new List<string>();
     }
 
     public static float GetGameSpeed()

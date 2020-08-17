@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreatePlaylist.unity
     guid: 2193c00559f664a4c8b8e411ec161e11
+  - enabled: 1
+    path: Assets/Scenes/OptionsMenu.unity
+    guid: c046b6e09c91d9d46a9d748756410eef
   m_configObjects: {}

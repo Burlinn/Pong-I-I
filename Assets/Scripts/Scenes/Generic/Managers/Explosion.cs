@@ -2,7 +2,7 @@
 
 namespace Generic
 {
-    public class ExplosionManager : MonoBehaviour
+    public class Explosion : MonoBehaviour
     {
 
         public float _timer;
