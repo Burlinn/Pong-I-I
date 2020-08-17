@@ -6,6 +6,22 @@ namespace Generic
     {
 
         public float _speed = 12;
+        public float _fasterSpeed = 18;
+        public float _largerPaddle = 1.5f;
+
+        private void Start()
+        {
+            if (GameManager.GetFasterPaddle())
+            {
+                _speed = _fasterSpeed;
+            }
+            if (GameManager.GetLargerPaddle())
+            {
+                Vector3 scale = transform.localScale;
+                scale.y = scale.y * _largerPaddle;
+                transform.localScale = scale;
+            }
+        }
 
         // Update is called once per frame
         void Update()

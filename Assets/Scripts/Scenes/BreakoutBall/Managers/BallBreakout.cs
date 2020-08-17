@@ -13,6 +13,15 @@ namespace BreakoutBall
             ConstantBallSpeed = _constantBreakoutBallSpeed;
             BallRigidbody = this.GetComponent<Rigidbody>();
             _scene = GameObject.Find(Constants.SCENE_MANAGER).GetComponent<BreakoutBallManager>();
+            if (GameManager.GetLargerPaddle())
+            {
+                PlayerRedirectThreshold = _largePaddleRedirectThreshold;
+            }
+            else
+            {
+                PlayerRedirectThreshold = _redirectThreshold;
+            }
+            EnemyRedirectThreshold = _redirectThreshold;
         }
 
         // Update is called once per frame
@@ -59,11 +68,11 @@ namespace BreakoutBall
             //Bounce in a direction depending on where it hits the player's paddle.
             if (collision.gameObject.name == Constants.PLAYER)
             {
-                if (transform.position.y <= collision.transform.position.y - .3)
+                if (transform.position.y <= collision.transform.position.y - PlayerRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + PlayerRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(4, 3, 0);
                 }
@@ -73,11 +82,11 @@ namespace BreakoutBall
             //Bounce in a direction depending on where it hits the enemy's paddle.
             if (collision.gameObject.name == Constants.ENEMY)
             {
-                if (transform.position.y <= collision.transform.position.y - .3)
+                if (transform.position.y <= collision.transform.position.y - EnemyRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(-4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + EnemyRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(-4, 3, 0);
                 }

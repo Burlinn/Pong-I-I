@@ -15,6 +15,15 @@ namespace Multiball
             BallRigidbody = this.GetComponent<Rigidbody>();
             ConstantBallSpeed = _constantMultipleBallSpeed;
             _scene = GameObject.Find(Constants.SCENE_MANAGER).GetComponent<MultiballManager>();
+            if (GameManager.GetLargerPaddle())
+            {
+                PlayerRedirectThreshold = _largePaddleRedirectThreshold;
+            }
+            else
+            {
+                PlayerRedirectThreshold = _redirectThreshold;
+            }
+            EnemyRedirectThreshold = _redirectThreshold;
         }
 
         // Update is called once per frame
@@ -42,11 +51,11 @@ namespace Multiball
             //Bounce in a direction depending on where it hits the player's paddle.
             if (collision.gameObject.name == Constants.PLAYER)
             {
-                if (transform.position.y <= collision.transform.position.y - .3)
+                if (transform.position.y <= collision.transform.position.y - PlayerRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + PlayerRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(4, 3, 0);
                 }
@@ -59,11 +68,11 @@ namespace Multiball
 			//Bounce in a direction depending on where it hits the enemy's paddle.
 			else if (collision.gameObject.name == Constants.ENEMY)
             {
-				if (transform.position.y <= collision.transform.position.y - .3)
+				if (transform.position.y <= collision.transform.position.y - EnemyRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(-4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + EnemyRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(-4, 3, 0);
                 }

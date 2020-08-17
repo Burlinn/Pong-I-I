@@ -18,7 +18,7 @@ namespace Missile
         private float _missileSpawnRotationZ = 270;
 
         private bool _isShot = false;
-        private global::Missile.MissileBallManager _scene;
+        private MissileBallManager _scene;
 
         private void Start()
         {
@@ -26,6 +26,17 @@ namespace Missile
             _isShot = false;
             _scene.CanFire(true);
             _scene.PlayerHit(false);
+
+            if (GameManager.GetFasterPaddle())
+            {
+                _speed = _fasterSpeed;
+            }
+            if (GameManager.GetLargerPaddle())
+            {
+                Vector3 scale = transform.localScale;
+                scale.y = scale.y * _largerPaddle;
+                transform.localScale = scale;
+            }
         }
 
         // Update is called once per frame

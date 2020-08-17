@@ -1139,6 +1139,8 @@ MonoBehaviour:
   _missileToggle: {fileID: 1717198644}
   _windmillToggle: {fileID: 181460895}
   _portalToggle: {fileID: 225570293}
+  _largerPaddleToggle: {fileID: 1553280748}
+  _fasterPaddleToggle: {fileID: 1295201608}
 --- !u!1 &492949506
 GameObject:
   m_ObjectHideFlags: 0

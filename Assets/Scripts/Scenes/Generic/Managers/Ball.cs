@@ -8,10 +8,15 @@ namespace Generic {
         
         //Used to manipulate delta time
         public float _gameSpeed = 10;
+        public float _redirectThreshold = .6f;
+        public float _largePaddleRedirectThreshold = .9f;
 
         //Two variables to hold our scores
-	    public bool _playerScoredLast = true;
+        public bool _playerScoredLast = true;
         public bool _roundHadWinner = false;
+
+        private float _playerRedirectThreshold;
+        private float _enemyRedirectThreshold;
 
         private Rigidbody _rigidBody;
 
@@ -33,9 +38,30 @@ namespace Generic {
             set { _rigidBody = value; }
         }
 
+        public virtual float PlayerRedirectThreshold
+        {
+            get { return _playerRedirectThreshold; }
+            set { _playerRedirectThreshold = value; }
+        }
+
+        public virtual float EnemyRedirectThreshold
+        {
+            get { return _enemyRedirectThreshold; }
+            set { _enemyRedirectThreshold = value; }
+        }
+
         public virtual void Start()
         {
             BallRigidbody = this.GetComponent<Rigidbody>();
+            if (GameManager.GetLargerPaddle())
+            {
+                PlayerRedirectThreshold = _largePaddleRedirectThreshold;
+            }
+            else
+            {
+                PlayerRedirectThreshold = _redirectThreshold;
+            }
+            EnemyRedirectThreshold = _redirectThreshold;
         }
 
         // Update is called once per frame
@@ -103,11 +129,11 @@ namespace Generic {
             //Bounce in a direction depending on where it hits the player's paddle.
             if (collision.gameObject.name == Constants.PLAYER)
             {
-                if (transform.position.y <= collision.transform.position.y - .3)
+                if (transform.position.y <= collision.transform.position.y - PlayerRedirectThreshold)
                 {
                     _rigidBody.velocity = new Vector3(4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + PlayerRedirectThreshold)
                 {
                     _rigidBody.velocity = new Vector3(4, 3, 0);
                 }
@@ -117,11 +143,11 @@ namespace Generic {
             //Bounce in a direction depending on where it hits the enemy's paddle.
             if (collision.gameObject.name == Constants.ENEMY)
             {
-                if (transform.position.y <= collision.transform.position.y - .3)
+                if (transform.position.y <= collision.transform.position.y - EnemyRedirectThreshold)
                 {
                     _rigidBody.velocity = new Vector3(-4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + EnemyRedirectThreshold)
                 {
                     _rigidBody.velocity = new Vector3(-4, 3, 0);
                 }

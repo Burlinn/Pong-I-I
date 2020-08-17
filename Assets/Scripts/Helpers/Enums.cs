@@ -5,6 +5,5 @@
         RoundPlaying = 2,
         RoundEnding = 3,
         GameHasWinner = 4
-
     }
 }

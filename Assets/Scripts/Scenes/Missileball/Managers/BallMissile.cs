@@ -19,6 +19,15 @@ namespace Missile
             BallRigidbody = this.GetComponent<Rigidbody>();
             ConstantBallSpeed = _constantMissileBallSpeed;
             GameManager.SetRoundHadWinner(false);
+            if (GameManager.GetLargerPaddle())
+            {
+                PlayerRedirectThreshold = _largePaddleRedirectThreshold;
+            }
+            else
+            {
+                PlayerRedirectThreshold = _redirectThreshold;
+            }
+            EnemyRedirectThreshold = _redirectThreshold;
         }
 
         // Update is called once per frame
@@ -86,11 +95,11 @@ namespace Missile
             if (collision.gameObject.name == Constants.PLAYER)
             {
                 _shotByEnemy = false;
-                if (transform.position.y <= collision.transform.position.y - .3)
+                if (transform.position.y <= collision.transform.position.y - PlayerRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + PlayerRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(4, 3, 0);
                 }
@@ -101,11 +110,11 @@ namespace Missile
             if (collision.gameObject.name == Constants.ENEMY)
             {
                 _shotByPlayer = false;
-                if (transform.position.y <= collision.transform.position.y - .3)
+                if (transform.position.y <= collision.transform.position.y - EnemyRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(-4, -3, 0);
                 }
-                if (transform.position.y >= collision.transform.position.y + .3)
+                if (transform.position.y >= collision.transform.position.y + EnemyRedirectThreshold)
                 {
                     BallRigidbody.velocity = new Vector3(-4, 3, 0);
                 }

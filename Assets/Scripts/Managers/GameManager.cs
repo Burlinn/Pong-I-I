@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     private static List<string> _scenePlayList;
     private static System.Random random = new System.Random();
     private static List<string> _disabledScenesList;
+    private static bool _largerPaddle = false;
+    private static bool _fasterPaddle = false;
 
     // Use this for initialization
     public void Start()
@@ -93,6 +95,11 @@ public class GameManager : MonoBehaviour
     public static void EnableScene(string sceneName)
     {
         _disabledScenesList.Remove(sceneName);
+    }
+
+    public static List<string> GetDisabledScenes()
+    {
+        return _disabledScenesList;
     }
 
     private void LoadStartingVectors()
@@ -218,5 +225,25 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public static void SetLargerPaddle(bool largerPaddle)
+    {
+        _largerPaddle = largerPaddle;
+    }
+
+    public static bool GetLargerPaddle()
+    {
+        return _largerPaddle;
+    }
+
+    public static void SetFasterPaddle(bool fasterPaddle)
+    {
+        _fasterPaddle = fasterPaddle;
+    }
+
+    public static bool GetFasterPaddle()
+    {
+        return _fasterPaddle;
     }
 }
