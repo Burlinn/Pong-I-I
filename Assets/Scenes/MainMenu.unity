@@ -2263,6 +2263,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _constantBallSpeed: 25
   _gameSpeed: 10
+  _redirectThreshold: 0.6
+  _largePaddleRedirectThreshold: 0.9
   _playerScoredLast: 1
   _roundHadWinner: 0
 --- !u!54 &1776464644
